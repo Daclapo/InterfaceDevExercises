@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas</title>
+</head>
+
+<script>    
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function main(){
+        const lista = [];
+        for (let i = 0; i < 10; i++)
+            lista[i] = getRandomInt(0, 1000);
+
+        document.write("Lista generada:<br>" + lista.join(", ") + "<br><br>");
+
+        let listaAscendente = lista.toSorted(function(a, b){return a - b});
+        document.write("Lista ordenada ascendente:<br>" + listaAscendente.join(", ") + "<br><br>");
+
+        document.write("Lista ordenada descendente:<br>" + listaAscendente.reverse().join(", ") + "<br><br>");
+
+        let suma = lista.reduce(function(acumulador, valor) {
+            return acumulador + valor;
+        }, 0);
+
+
+        document.write("Valor medio en la lista:<br>" + (suma / lista.length) + "<br><br>");
+
+        document.write("Valor minimo en la lista:<br>" + listaAscendente[9] + "<br><br>");
+        
+        document.write("Valor maximo en la lista:<br>" + listaAscendente[0] + "<br><br>");
+
+        document.write("Suma de los valores en la lista:<br>" + suma + "<br><br>");
+        
+        
+
+        lista
+    }
+
+    main();
+
+</script>
+
+<body>
+    
+</body>
+</html>

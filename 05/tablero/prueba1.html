@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC11</title>
+    <script>
+    function inicio(){
+        document.write("<h1>Atención Clicka en las TRES primeras Cajas</h2>");
+        for(var i = 0; i <=3; i++){         //Creamos las 3 cajas con las medidas dadas
+            var ele = crearCaja(60,100,i);
+        }
+    }
+
+    //Funcion para crear los elementos "caja" 
+    function crearCaja(altura, ancho, id){
+        var color = ['red','blue','grey','green'];
+        var caja = document.createElement('div');
+        caja.id= id;
+        caja.style.width = ancho+'px';
+        caja.style.height = altura+'px';
+        caja.style.margin = '4px';
+        caja.style.backgroundColor = color[id];
+        caja.addEventListener('click', clickCaja);
+        document.body.appendChild(caja);
+    }
+
+    //Funcion para manejar el evento de click
+    function clickCaja(){
+        console.log("click");       //Prueba de que al suceder el evento se ejecuta la función
+        var cambio = document.getElementById(3);
+        var linea = cambio.style.width;
+        //Cambiamos el valor del ancho a un número
+        var ancho = parseInt(cambio.style.width.slice(0,3));
+        console.log(ancho);
+        if (this.id == 0) {                       //si es el div con ID 0 es clickado
+            console.log("Aumenta " + ancho);
+            ancho = ancho + 40;
+            if(ancho > 400){ancho = 400;}
+        } else if (this.id == 1 && ancho > 100 ){ //si es el div con ID 1 es clickado
+            console.log("Disminuye " + ancho);
+            ancho = ancho - 40;
+            if(ancho < 100){ ancho = 100; }
+        } else {
+            ancho = 100; 
+        }
+        console.log(ancho);
+        cambio.style.width = ancho + 'px';
+        cambio.innerHTML = ancho;
+        cambio.style.fontSize = '50px';
+        cambio.style.textAlign = 'center';
+        cambio.style.alignItems = 'center';
+    }
+    window.onload = inicio; //Ejecuta la funcion llamada inicio en el momento en el que carga la página
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
+
+    /*
+    01- Aparecen las instrucciones correctas mayúsculas, minúsculas, acentos.
+    02- Aparecen 4 cajas de colores.
+    03- Las cajas son exactamente del mismo tamaño, determinado en el inspector.
+    04- Las cajas estan completamente alineadas y separadas igual, determinado en el inspector.
+    05- El aumento de las dimensiones de la caja verde maximo 400.
+    06- La disminución de las dimensiones de la caja verde minimo 100.
+    07- Reset de las dimensiones de caja verde a 100 desde cualquier tamaño.
+    08- Aparece correcto el número del ancho en la caja verde en todo momento.
+    09- Texto caja verde centrado y alineado.*/

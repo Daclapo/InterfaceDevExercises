@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC12</title>
+   
+</head>
+<body>
+    <script>
+        var cajas =crearArray();
+        function inicio(){
+            //Crear las cajas con los datos
+            var cont=0;
+            for(var i=1;i<5;i++){
+                for(var j=1; j<5;j++){
+                    cont++;
+                    var ele = crearCaja(cajas[cont-1],cont)
+                    //console.log(i);
+                }
+                crearSalto();
+            }
+
+            var bordesC=[];
+            for(let bordes of cajas){
+                bordesC.push(bordes.bordes);
+            }
+        }
+        function crearCaja(arrayCaja,id){
+            var objeto = arrayCaja;
+            var colorBor = colorBordes(objeto.bordes);
+            var caja = document.createElement("div");
+                caja.id=id;
+                caja.innerHTML=objeto.num1;
+                caja.style.cssFloat='left'; // posicionamiento
+                caja.style.backgroundColor='aquamarine';
+                caja.style.width='160px';
+                caja.style.height='38px';
+                caja.style.margin='6px';
+                caja.style.border='6px solid';
+                caja.style.padding='14px';
+                caja.style.borderTopColor= colorBor[0];
+                caja.style.borderRighColor=colorBor[1];
+                caja.style.borderBottomColor=colorBor[2];
+                caja.style.borderLeftColor=colorBor[3];
+                caja.addEventListener('click', clickCaja);
+            document.body.appendChild(caja);
+        }
+        function crearSalto(height){
+            var ele=document.createElement('div');
+            ele.style.clear='left';
+            document.body.appendChild(ele);	
+        }
+        function crearArray(){
+            //Crear el array de cajas objeto
+            var cajas = [];
+            for(var i = 0; i<16;i++){
+                var dato = {bordes:bordes(),num1:randomNum(0,100),num2:randomNum(0,99),num3:randomNum(0,99)};
+                cajas[i]=dato;
+                console.log(cajas[i]);
+            }
+            return cajas;
+        }
+        function clickCaja(){
+            var elem = document.getElementById(this.id);
+            console.log(this.id);
+            if(elem.innerHTML == cajas[this.id-1].num1){
+                elem.innerHTML = cajas[this.id-1].num2;
+            }else if (elem.innerHTML==cajas[this.id-1].num2){
+                elem.innerHTML = cajas[this.id-1].num3;
+            }else if(elem.innerHTML==cajas[this.id-1].num3){
+                elem.innerHTML = cajas[this.id-1].num1;
+            }
+        }
+        function colorBordes(bordes){
+            var bordesC=bordes;
+            var colores=[];
+            for(var i=0;i<4;i++){
+                if(bordesC[i]=='1'){
+                    colores[i]="black";
+                }else{
+                    colores[i]="orange";
+                }
+            }
+            return colores;
+        }
+        function bordes(){
+            var dato = '';
+            for(var i=0; i<4;i++){dato +=randomNum(0,2)}
+            return dato;
+        }
+        function randomNum(mini, maxi){
+                var min = mini;
+                var max = maxi;
+                var randomInt = Math.floor(Math.random() * (max - min)) + min;
+                return randomInt;
+        }
+        window.onload=inicio;
+   </script>
+</body>
+</html>
+
+
+
+
+
+
+
+    <!-- 
+    Prueba ==
+    Crear una página solo en js. Al cargar la página generar una estructura 
+    con datos al azar (ver abajo). Presentar la información y cálculos usando 
+    la citada estructura de datos (ver captura).
+
+    --01) Para cada recarga de página se genera la estructura de datos dada (ver abajo). 
+    Tu programa debe mostrar por consola los datos (captura3).
+    02) Presentar 'El número máximo del tablero es'.
+    03) Presentar 'El número mínimo del tablero es'.
+    04) Presentar 'Bordes:'.
+    05) Presentar 'La suma de los bordes es'.
+    06) Presentar 'Datos:'.
+    --07) Presentar un tablero con 16 celdas azules alineadas (captura4).
+    --08) Dibujar los bordes de las cajas según la estructura de datos creada.
+    09) Presentar el máximo.mínimo dentro de cada caja según los datos.
+    --10) Para cada click en cualquier caja intercambiar los números de la celda.
+
+    Estructura de datos ==
+    - El primer elemento son cuatro caracteres, al azar entre 0 o 1 
+    que indican si el color es negro en el borde de la caja.
+    - Los siguientes elementos son tres números al azar entre 0 y 99.
+    Ejemplo (este ejemplo crea la captura1.png):
+    datos=[
+    ['1001',31,82,55], /* caja1 */
+    ['1000',42,23,78], /* caja2 */
+    ['1000',54,91,57],
+    ['1100',34,11,83],
+    ['0001',32,22,54],
+    ['0000',44,43,75],
+    ['0000',54,54,56],
+    ['0100',32,85,87],
+    ['0001',33,26,54],
+    ['0000',43,45,75],
+    ['0000',53,55,56],
+    ['0100',32,87,88],
+    ['0011',33,18,55],
+    ['0010',42,26,74],
+    ['0010',52,34,53],
+    ['0110',33,96,82]  /* caja16 */
+    ];
+    -->

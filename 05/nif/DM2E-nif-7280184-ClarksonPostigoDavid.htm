@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script>
+
+function verificarNIF() {
+    try {
+        // Pedimos los datos al usuario
+        const nif = prompt("Introduce tu NIF (número y letra):");
+
+        if (!nif) {
+            throw new Error("No se ha proporcionado ningún NIF.");
+        }
+
+        // Separar el número de la letra
+        const numero = nif.slice(0, -1);
+        const letra = nif.slice(-1).toUpperCase();
+
+        // Validaciones
+        if (!/^\d{8}$/.test(numero)) {
+            throw new Error("El número del NIF debe tener 8 dígitos.");
+        }
+
+        if (!/^[A-Z]$/.test(letra)) {
+            throw new Error("La letra del NIF debe ser una sola letra.");
+        }
+
+        // Cálculo para validar la letra
+        const letrasValidas = "TRWAGMYFPDXBNJZSQVHLCKE";
+        const indiceLetra = parseInt(numero) % 23;
+        const letraCorrecta = letrasValidas.charAt(indiceLetra);
+
+        if (letra !== letraCorrecta) {
+            throw new Error(`La letra es incorrecta. Debería ser "${letraCorrecta}".`);
+        }
+
+        // Si todo está bien, imprimimos el NIF
+        console.log(`NIF válido: ${numero}${letra}`);
+    } catch (error) {
+        // Imprimir el error encontrado
+        console.error("Error: " + error.message);
+    } finally {
+        // Resumen final
+        console.log("Se ha realizado la verificación del NIF.");
+    }
+}
+
+verificarNIF();
+
+    </script>
+</head>
+<body>
+</body>
+</html>

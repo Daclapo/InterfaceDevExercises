@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listas3</title>
+</head>
+<body>
+
+<script>
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function getRandomColor() {
+        const r = getRandomInt(0, 255);
+        const g = getRandomInt(0, 255);
+        const b = getRandomInt(0, 255);
+        return `rgb(${r},${g},${b})`;
+    }
+
+    function getRandomLetter() {
+        const letters = 'ABCDEFGHIJKL';
+        return letters[getRandomInt(0, letters.length - 1)];
+    }
+
+    function getRandomLevel() {
+        const levels = ['A', 'B', 'C'];
+        return levels[getRandomInt(0, levels.length - 1)];
+    }
+
+    function createObject() {
+        return {
+            alto: getRandomInt(50, 90),
+            ancho: getRandomInt(40, 60),
+            color: getRandomColor(),
+            texto: getRandomLetter(),
+            nivel: getRandomLevel(),
+            version: getRandomInt(0, 9)
+        };
+    }
+
+    function createDiv(obj) {
+        const div = document.createElement('div');
+        div.innerText = `${obj.texto}:${obj.nivel} ${obj.version}`;
+        div.style.height = obj.alto + 'px';
+        div.style.width = obj.ancho + 'px';
+        div.style.backgroundColor = obj.color;
+        div.style.margin = '5px';
+        div.style.float = 'left';
+        div.style.cursor = 'pointer';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.justifyContent = 'center';
+        div.style.color = 'white';
+        div.style.fontWeight = 'bold';
+        div.style.border = '1px solid black';
+        return div;
+    }
+
+    function displayObjects(container, list) {
+        container.innerHTML = ''; 
+        list.forEach(obj => {
+            const div = createDiv(obj);
+            container.appendChild(div);
+        });
+    }
+
+    function addHeader(text, container) {
+        const header = document.createElement('div');
+        header.innerText = text;
+        header.style.fontWeight = 'bold';
+        header.style.marginBottom = '10px';
+        container.appendChild(header);
+    }
+
+    function main() {
+        const lista = [];
+        for (let i = 0; i < 10; i++) {
+            lista.push(createObject());
+        }
+
+        // Listado en orden del índice del array
+        const listadoContainer = document.createElement('div');
+        addHeader('Listado (texto:nivel y version)', listadoContainer);
+        document.body.appendChild(listadoContainer);
+        displayObjects(listadoContainer, lista);
+
+        // Ascendente por versión
+        const ascendenteContainer = document.createElement('div');
+        ascendenteContainer.style.clear = 'both'; // Limpiar el float anterior
+        addHeader('Ascendente x version', ascendenteContainer);
+        document.body.appendChild(ascendenteContainer);
+        const listaAscendente = [...lista].sort((a, b) => a.version - b.version);
+        displayObjects(ascendenteContainer, listaAscendente);
+
+        // Descendente por versión
+        const descendenteContainer = document.createElement('div');
+        descendenteContainer.style.clear = 'both'; // Limpiar el float anterior
+        addHeader('Descendente x version', descendenteContainer);
+        document.body.appendChild(descendenteContainer);
+        const listaDescendente = [...lista].sort((a, b) => b.version - a.version);
+        displayObjects(descendenteContainer, listaDescendente);
+
+        // Filtrado por versión de 0 a 5
+        const filtradoContainer = document.createElement('div');
+        filtradoContainer.style.clear = 'both'; // Limpiar el float anterior
+        addHeader('Filtrado x version', filtradoContainer);
+        document.body.appendChild(filtradoContainer);
+        const listaFiltrada = lista.filter(obj => obj.version >= 0 && obj.version <= 5);
+        displayObjects(filtradoContainer, listaFiltrada);
+
+        // Suma de las versiones
+        const suma = lista.reduce((acumulador, obj) => acumulador + obj.version, 0);
+        const sumaElement = document.createElement('div');
+        sumaElement.style.clear = 'both'; // Limpiar el float anterior
+        sumaElement.innerHTML = `<strong>suma: </strong> ${suma}`; // Suma con negrita
+        document.body.appendChild(sumaElement);
+    }
+
+    main();
+</script>
+
+</body>
+</html>
