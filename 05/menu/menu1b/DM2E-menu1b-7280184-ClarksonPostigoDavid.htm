@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div:hover{
+            background-color: grey !important;
+        }
+    </style>
+    <script>
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            var texto = "Donec nec tempus leo, id sagittis massa. Vivamus vestibulum sodales faucibus. Cras in lectus ut sapien pulvinar vehicula nec porta tortor. Proin tempus nibh lectus, et commodo sapien euismod id. Duis id nisl at sapien eleifend pulvinar. Maecenas sed massa magna. Proin a nisl non quam tincidunt semper in non felis. Duis tristique vehicula bibendum. Donec vel turpis finibus, aliquam nisi at, fermentum lacus. Morbi id erat in ante suscipit euismod. In suscipit eu quam in facilisis. In auctor sagittis mattis. Aenean lobortis nisi maximus augue euismod sagittis. Aliquam erat volutpat. Fusce lobortis ac nunc ut interdum. Nulla auctor laoreet accumsan. Praesent dignissim, risus ut feugiat ultricies, eros lorem pellentesque mi, et viverra est neque a justo. Nullam sollicitudin, erat eget posuere blandit, est nibh posuere quam, in elementum ex augue in magna. Sed aliquet, nulla hendrerit dictum rutrum, arcu mi euismod tortor, vitae posuere arcu nibh nec massa. Ut semper justo non congue lobortis. Sed dignissim, felis et rutrum condimentum, neque neque bibendum libero, ac volutpat felis augue et nunc. Duis hendrerit eros sit amet quam suscipit, sit amet sodales odio ultricies. Aliquam nec magna faucibus, ultrices turpis vel, blandit urna. Morbi condimentum lectus id feugiat ullamcorper. Aliquam erat volutpat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas accumsan sem iaculis, eleifend metus quis rutrum odio. Nullam a feugiat nibh nec congue dolor. Praesent laoreet tortor eu quam feugiat, ac consectetur ante lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut faucibus sagittis purus, ut euismod libero commodo eu. Aliquam auctor erat nunc, gravida ultricies arcu porta eu. Nullam mattis vel dolor at mollis. Donec bibendum auctor sem, et consectetur urna luctus eu. Aliquam erat volutpat. In magna nisl, vehicula in dolor sit amet, dapibus ultricies nisi. Suspendisse vitae odio a odio luctus consequat vel quis felis. Ut finibus purus id vulputate ultricies. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Curabitur eu ligula bibendum, rhoncus diam sit amet, hendrerit nunc. Nullam venenatis et dolor id dignissim. Nunc nibh enim, rhoncus eu tellus id, mollis tristique massa. Aliquam erat volutpat. Sed condimentum, felis id feugiat tincidunt, ex quam accumsan dui, et condimentum nisi magna non ligula. Proin euismod tortor felis, non accumsan purus sodales quis. In neque lectus, ullamcorper malesuada accumsan posuere, hendrerit in neque. Cras sit amet lectus tempor, condimentum ante a, mattis turpis. Aliquam tempor felis odio, quis pharetra augue tristique a. Fusce pulvinar porttitor ipsum, nec convallis eros lacinia a. Vivamus gravida vel lectus vestibulum feugiat. Nam dignissim nibh non dolor cursus, vel suscipit lectus congue. Morbi maximus nisl a rutrum lacinia. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel facilisis velit. Ut orci nisl, rhoncus a feugiat a, tincidunt non ligula. Curabitur mattis dui et lorem aliquet hendrerit. Vestibulum maximus rutrum nunc. Nullam ligula lacus, vulputate eu est aliquet, tincidunt suscipit nunc. Sed vel urna nisi. Etiam semper ut lorem dictum ornare.";
+
+            function clickCaja() {
+                var parrafo = document.getElementById('textoCaja');
+
+
+                for (let i = 1; i <= 20; i++) {
+                    if(this.id === 'c'+i)
+                        parrafo.innerHTML = '<strong>menu</strong> <strong><em>' + i + '</em></strong><br>' + texto.substr(getRandomInt(0,120), 240);
+                }
+            }
+
+            function crearCajas() {
+                for (let i = 1; i <= 20; i++) {
+                    var ele = document.createElement('div');
+                    document.body.appendChild(ele);
+                    ele.id = 'c' + i;
+                    ele.innerHTML = 'menu ' + i;
+                    ele.style.backgroundColor = 'white';
+                    ele.style.border = '1px solid #000';
+                    ele.style.width = '100px';
+                    ele.style.height = '25px';
+                    ele.style.margin = '5px';
+                    ele.style.float = 'left';
+                    ele.style.textAlign = 'center';
+                    ele.style.cursor = 'pointer';
+                    ele.addEventListener('click', clickCaja);
+                }
+
+                var parrafo = document.createElement('p');
+                parrafo.id = 'textoCaja';
+                parrafo.style.clear = 'both';
+                parrafo.style.padding = '10px';
+                document.body.appendChild(parrafo); 
+            }
+
+
+
+            window.onload = crearCajas; 
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
