@@ -1,0 +1,48 @@
+Análisis de agregadores (Trivago, Amazon, Idealo) en 8 tareas clave
+1. Listado de productos:
+Amazon: Ofrece un listado de productos en formato de cuadrícula o lista, con una imagen destacada, precio, valoración y descripciones rápidas. El usuario puede hacer clic para ver más detalles.
+Trivago: Utiliza un listado basado en hoteles, con la opción de ordenar por precio, valoración o distancia. Los resultados combinan recomendaciones y criterios seleccionados, como distancia o calificaciones.
+Idealo: Muestra productos en listas o cuadrículas, destacando el precio mínimo encontrado, la disponibilidad y valoraciones, muy centrado en la comparación de precios.
+Mejor solución: Amazon. Su visualización de cuadrícula junto con imágenes y breves detalles permite una navegación rápida y eficiente.
+
+2. Características de un producto:
+Amazon: Detalla características en forma de viñetas, con descripciones largas, imágenes múltiples y vídeos, además de comentarios y preguntas de usuarios.
+Trivago: Describe las instalaciones de cada hotel, imágenes, calificaciones y características como WiFi, piscina, y proximidad a puntos de interés.
+Idealo: Ofrece especificaciones técnicas del producto, precios de diferentes vendedores y opiniones de usuarios, pero con menos detalle visual que Amazon.
+Mejor solución: Amazon. Las descripciones detalladas, opiniones y multimedia mejoran la experiencia de usuario.
+
+3. Navegación:
+Amazon: Barra de navegación superior clara con acceso rápido a todas las categorías y búsquedas previas, además de menús desplegables.
+Trivago: Interfaz simple y accesible con menús claros para cambiar filtros, ubicación o tipo de hotel.
+Idealo: Similar a Amazon, con menús desplegables y filtros bien organizados, aunque más centrado en la comparación de precios.
+Mejor solución: Amazon. Su barra de navegación siempre visible facilita el acceso a cualquier parte de la tienda.
+
+4. Retorno a Home:
+Amazon: Logo en la esquina superior izquierda, siempre visible, que redirige a la página principal al hacer clic.
+Trivago: Logo en la esquina superior izquierda, siempre visible, que redirige a la página principal al hacer clic.
+Idealo: Logo en la esquina superior izquierda, siempre visible, que redirige a la página principal al hacer clic.
+Mejor solución: Las tres hacen lo mismo.
+
+5. Migas:
+Amazon: Incluye migas, que permiten al usuario regresar fácilmente a niveles anteriores de la jerarquía de categorías.
+Trivago: No utiliza migas, ya que la navegación depende más de los filtros.
+Idealo: Incluye migas de pan para navegar entre categorías, lo que facilita el regreso a resultados anteriores.
+Mejor solución: Amazon. Sus migas bien definidas ayudan en la navegación sin perder el contexto.
+
+6. Filtros sobre los productos del listado:
+Amazon: Filtrado extenso por categorías, precio, valoraciones, marcas, entre otros, con la capacidad de combinar múltiples criterios.
+Trivago: Permite filtrar por criterios clave como precio, distancia, calificación y características de alojamiento (WiFi, Spa, etc.).
+Idealo: Ofrece filtros detallados enfocados en características técnicas y precios.
+Mejor solución: Trivago. Los filtros personalizados, como cercanía a puntos de interés y características del alojamiento, son muy efectivos en su contexto.
+
+7. Ordenación del listado:
+Amazon: Ofrece múltiples opciones de ordenación, como "mejor valorado", "precio ascendente/descendente", "novedades", etc.
+Trivago: Ordena resultados basados en "nuestras recomendaciones", pero permite ordenar por precio, distancia y calificación.
+Idealo: Ordenación por precio, popularidad o valoración, centrado en la comparación.
+Mejor solución: Amazon. La cantidad de opciones de ordenación permite personalizar la experiencia del usuario.
+
+8. Búsqueda de un producto:
+Amazon: Barra de búsqueda eficiente, con autocompletado y sugerencias de búsqueda basadas en historial y popularidad.
+Trivago: Búsqueda intuitiva centrada en fechas, destino y características del alojamiento.
+Idealo: Barra de búsqueda con autocompletado y opciones de refinamiento inmediato por precio o categoría.
+Mejor solución: Amazon. El autocompletado y las sugerencias personalizadas permiten búsquedas más rápidas y eficientes.

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de NIF</title>
+</head>
+<body>
+
+    <h1>Verificación de NIF</h1>
+    <p id="resultado"></p> <!-- Aquí se mostrará el resultado -->
+
+    <script>
+        function verificarNIF() {
+            try {
+                // Pedimos los datos al usuario (número y letra en dos prompts separados)
+                const numero = prompt("Introduce el número de tu NIF (8 dígitos):");
+                const letra = prompt("Introduce la letra de tu NIF:");
+
+                if (!numero) {
+                    throw new Error("No se ha proporcionado ningún número.");
+                }
+                if (!letra) {
+                    throw new Error("No se ha proporcionado ninguna letra.");
+                }
+
+                // Validaciones
+                if (!/^\d{8}$/.test(numero)) {
+                    throw new Error("El número del NIF debe tener 8 dígitos.");
+                }
+
+                if (!/^[A-Z]$/i.test(letra)) {
+                    throw new Error("La letra del NIF debe ser una sola letra.");
+                }
+
+                // Convertimos la letra a mayúsculas
+                const letraMayus = letra.toUpperCase();
+
+                // Cálculo para validar la letra
+                const letrasValidas = "TRWAGMYFPDXBNJZSQVHLCKE";
+                const indiceLetra = parseInt(numero) % 23;
+                const letraCorrecta = letrasValidas.charAt(indiceLetra);
+
+                if (letraMayus !== letraCorrecta) {
+                    throw new Error(`La letra es incorrecta. Debería ser "${letraCorrecta}".`);
+                }
+
+                // Si todo está bien, imprimimos el NIF válido en la página
+                document.getElementById("resultado").innerHTML = `NIF válido: ${numero}${letraMayus}`;
+            } catch (error) {
+                // Imprimir el error encontrado en la página
+                document.getElementById("resultado").innerHTML = "Error: " + error.message;
+            } finally {
+                // Resumen final en la consola
+                console.log("Se ha realizado la verificación del NIF.");
+            }
+        }
+
+        // Ejecutamos la función cuando cargue la página
+        window.onload = verificarNIF;
+    </script>
+
+</body>
+</html>

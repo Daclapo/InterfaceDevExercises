@@ -1,0 +1,22 @@
+<script>
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generarValores() {
+        for (let i = 0; i < 10; i++) {
+            let alto = getRandomInt(1, 10);
+            let ancho = getRandomInt(1, 10);
+            let fondo = getRandomInt(1, 10);
+            let superficieMetros = ancho * fondo;
+            let volumenMetros = alto * ancho * fondo;
+
+            let volumenEnPies = Math.floor(volumenMetros * 3.28);
+
+            document.write(`alto=${alto} ancho=${ancho} fondo=${fondo} superficie=${superficieMetros} volumen=${volumenMetros} volumen en pies=${volumenEnPies}<br>`);
+        }
+    }
+    generarValores();
+
+</script>

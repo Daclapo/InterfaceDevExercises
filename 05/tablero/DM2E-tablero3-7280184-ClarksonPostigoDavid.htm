@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div:hover{
+            background-color: grey !important;
+        }
+    </style>
+    <script>
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+
+            function crearCajas() {
+                var i = 1;
+                var j = 1;
+                while (i <= 8){
+                    while (j <= 8){
+                        var ele = document.createElement('div');
+                        document.body.appendChild(ele);
+                        ele.id = i +""+ j;
+                        ele.innerHTML = 'H'+i+j;
+                        ele.style.backgroundColor = 'aqua';
+                        ele.style.border = '1px solid #000';
+                        ele.style.width = getRandomInt(25, 60) + 'px';
+                        ele.style.height = getRandomInt(25, 60) + 'px';
+                        ele.style.margin = '5px';
+                        ele.style.float = 'left';
+                        ele.style.cursor = 'pointer';
+                        j++;
+                    }
+                    document.body.appendChild(document.createElement('br'));
+                    document.body.appendChild(document.createElement('br'));
+                    document.body.appendChild(document.createElement('br'));
+                    document.body.appendChild(document.createElement('br'));
+                    j = 1;
+                    i++;
+                }
+            }
+            window.onload = crearCajas; 
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
