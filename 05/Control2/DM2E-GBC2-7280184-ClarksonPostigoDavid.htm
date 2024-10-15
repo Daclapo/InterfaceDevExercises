@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Correccion Fallo 1 -->
+    <title>Restaurante El Pollo Frito</title> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #533;
+            color: #fff; /* Corregido fallo 5 */
+            padding: 1rem;
+            text-align: center; /* Corregido fallo 8 */
+        }
+        main {
+            padding: 2rem;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        a {
+            font-size: 15px; /* Corregido fallo 7 */
+        }
+    </style>
+</head>
+<body>
+    <!-- Fallo 8 -->
+    <header>
+        <h1>Restaurante El Pollo Frito</h1>
+    </header>
+
+    <main>
+        <!-- Fallo 2 -->
+        <h2>Sobre Nosotros</h2>
+        <p>Somos una polleria, que lleva desde el año 1968 haciendo el mejor pollo frito de Madrid.</p>
+
+        <!-- Fallo 3 -->
+        <h2>Contacto</h2>
+        <p>Puedes contactarnos en <a href="mailto:ejemplo@correo.com">ejemplo@correo.com</a>, o vienendo a nuestro local Gran Via 15</p>
+
+        <!-- Fallo 4 y-->
+        <h2>Ofertas y Pedidos</h2>
+        <p>Ven al local para descubrir las mejores ofertas.</p>
+        <p>Ven al local para hacer tus pedidos.</p>
+
+        <!-- Fallo 9 -->
+        <h2>Contacto</h2>
+        <p>Estamos aquí para atenderte.</p>
+    </main>
+
+    <footer>
+        <p>© 2024 Restaurante El Pollo Frito</p>
+    </footer>
+
+    <!-- Fallo 4 -->
+</body>
+</html>
+
+<!--
+Fallo 1
+1. Regla incumplida: Titulo de la pagina relevante a la pagina.
+2. Línea de código:
+    <title>Mi Página Web Sencilla Quizas es un poco largo el titulo de la pestaña</title>
+   Explicación: No tiene relevancia a la pagina que es.
+3. Corrección: Cambiar el texto, para que una cliente, pueda saber en que pagina/pestaña está. Y hacerlo mas corto.
+
+Fallo 2
+1. Regla incumplida: La la etiqueta "Sobre Mí" no aporta nada en el contexto y proposito de la pagina web. 
+2. Línea de código:
+   <h2>Sobre Mí</h2>
+   <p>Esta es una página web sencilla creada solo con HTML y un poco de CSS.</p>
+   Explicación: La sección "Sobre Mí" no tiene relación con el contenido del sitio web (una polleria).
+3. Corrección: Cambiar "Sobre Mí" a "Sobre Nosotros" como resteurante, y el parrafo corregido para que sea más coherente.
+
+Fallo 3
+1. Regla incumplida: Uso del formato del texto que varia(falta de consistencia) y valor del contendio de la parte de contacto.
+2. Línea de código:
+   <h2>Contactopuedes contactarme en <a href="mailto:ejemplo@correo.com">ejemplo@correo.com</a></h2>
+   Explicación: Las palabras "Contacto" y "puedes" están juntas sin espacio.
+3. Corrección: Clarificado el parrafo y añadido texto relevante.
+
+Fallo 4
+1. Regla incumplida: Texto redundante, e innecesario. 
+2. Línea de código:
+   <h1>Pedidos</h1>
+   <p>Ven al local para hacer tus pedidos. Sin duda es la mejor opción...</p>
+   <h1>Pedidos</h1>
+   <p>Ven al local para hacer tus pedidos. Sin duda es la mejor opción, puedes pasar en el monto que quieras y seras muy bien atendido. Tienes disponibles muchos productos para hacer tu pedido.</p>
+   Explicación: El texto es redundante y tiene errores gramaticales.
+
+Fallo 5
+1. Regla incumplida: Contraste insuficiente entre el texto y el fondo en el header.
+2. Línea de código:
+   header {
+      background-color: #533;
+      color: #222;
+   }
+   Explicación: El color #222 en el texto y el fondo oscuro hacen que el texto sea difícil de leer.
+3. Corrección: Cambiar el color del texto a blanco (#fff) para mejorar el contraste.
+
+Fallo 6
+1. Regla incumplida: La etiqueta `<header>` debería estar al principio del cuerpo, mostrando el titulo arriba.
+2. Línea de código:
+   <header>
+      <h1>Restaurante El Pollo Frito</h1>
+   </header>
+   Explicación: El header está después del main, lo cual es un problema de estructura semántica.
+3. Corrección: Mover el header al principio del cuerpo.
+
+
+Fallo 7
+1. Regla incumplida: Tamaño de fuente demasiado pequeño en los enlaces, lo que dificulta la legibilidad.
+2. Línea de código:
+   a {
+      font-size: 10px;
+   }
+   Explicación: El tamaño de la fuente de los enlaces es muy pequeño y no cumple con las recomendaciones de accesibilidad.
+3. Corrección: Aumentar el tamaño de la fuente a un mínimo de 15px.
+
+
+Fallo 8
+1. Regla incumplida: El texto en el header debe estar alineado de forma que sea más fácil de leer, ya que es lo mas importante.
+2. Línea de código:
+   header {
+      text-align: right;
+   }
+   Explicación: La alineación a la derecha no es adecuada para un título principal.
+3. Corrección: Cambiar la alineación a "center".
+
+
+Fallo 8
+1. Regla incumplida: El texto en el header debe estar alineado de forma que sea más fácil de leer, ya que es lo mas importante.
+2. Línea de código:
+   header {
+      text-align: right;
+   }
+   Explicación: La alineación a la derecha no es adecuada para un título principal.
+3. Corrección: Cambiar la alineación a "center".
+
+Fallo 9
+1. Regla incumplida: Las secciones de contenido deben estar correctamente estructuradas con los headers.
+2. Línea de código:
+   <h2>Ofertas</h2>
+   <p>Ven al local para descubrir las mejores ofertas.</p>
+   Explicación: El uso de `<h2>` para títulos no relacionados con la jerarquía del contenido crea problemas de accesibilidad.
+3. Corrección: Mantener una estructura adecuada, usando encabezados `<h3>` para secciones secundarias.
+
+-->

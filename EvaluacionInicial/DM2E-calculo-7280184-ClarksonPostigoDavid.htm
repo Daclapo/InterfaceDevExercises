@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function obtenerValores() {
+            const alto = parseFloat(prompt('Ingrese el alto en metros:'));
+            const ancho = parseFloat(prompt('Ingrese el ancho en metros:'));
+            const fondo = parseFloat(prompt('Ingrese el fondo en metros:'));
+
+            if (isNaN(alto) || isNaN(ancho) || isNaN(fondo)) {
+                alert('Ingresa un valor numérico válido.');
+                return;
+            }
+
+            const superficieMetros = ancho * fondo;
+            const volumenMetros = alto * ancho * fondo;
+
+            const superficiePies = superficieMetros * 3.28;
+            const volumenPies = volumenMetros * 3.28;
+
+            document.write(`alto = ${alto}` + '<br/>');
+            document.write(`ancho = ${ancho}` + '<br/>');
+            document.write(`fondo = ${fondo}` + '<br/>');
+            document.write(`superficie = ${superficieMetros.toFixed(0)} ( ${superficiePies.toFixed(2)} pies )` + '<br/>');
+            document.write(`volumen = ${volumenMetros.toFixed(0)} ( ${volumenPies.toFixed(2)} pies )`);
+        }
+        obtenerValores();
+    </script>
+</body>
+</html>
