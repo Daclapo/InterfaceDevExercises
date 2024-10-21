@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Listas3</title>
 </head>
 <body>
@@ -72,8 +71,6 @@
         header.innerText = text;
         header.style.fontWeight = 'bold';
         header.style.marginBottom = '10px';
-        header.style.clear = 'both'; // Limpiar flotantes antes de insertar el encabezado
-        header.style.display = 'block'; // Asegurar que el encabezado sea bloque
         container.appendChild(header);
     }
 
@@ -85,16 +82,13 @@
 
         // Listado en orden del índice del array
         const listadoContainer = document.createElement('div');
-        listadoContainer.style.display = 'block'; // Asegurar comportamiento de bloque
-        listadoContainer.style.clear = 'both'; // Limpiar flotantes para el siguiente bloque
         addHeader('Listado (texto:nivel y version)', listadoContainer);
         document.body.appendChild(listadoContainer);
         displayObjects(listadoContainer, lista);
 
         // Ascendente por versión
         const ascendenteContainer = document.createElement('div');
-        ascendenteContainer.style.display = 'block';
-        ascendenteContainer.style.clear = 'both'; // Limpiar el float anterior
+        ascendenteContainer.style.clear = 'both';
         addHeader('Ascendente x version', ascendenteContainer);
         document.body.appendChild(ascendenteContainer);
         const listaAscendente = [...lista].sort((a, b) => a.version - b.version);
@@ -102,8 +96,7 @@
 
         // Descendente por versión
         const descendenteContainer = document.createElement('div');
-        descendenteContainer.style.display = 'block';
-        descendenteContainer.style.clear = 'both'; // Limpiar el float anterior
+        descendenteContainer.style.clear = 'both';
         addHeader('Descendente x version', descendenteContainer);
         document.body.appendChild(descendenteContainer);
         const listaDescendente = [...lista].sort((a, b) => b.version - a.version);
@@ -111,8 +104,7 @@
 
         // Filtrado por versión de 0 a 5
         const filtradoContainer = document.createElement('div');
-        filtradoContainer.style.display = 'block';
-        filtradoContainer.style.clear = 'both'; // Limpiar el float anterior
+        filtradoContainer.style.clear = 'both';
         addHeader('Filtrado x version', filtradoContainer);
         document.body.appendChild(filtradoContainer);
         const listaFiltrada = lista.filter(obj => obj.version >= 0 && obj.version <= 5);
@@ -121,8 +113,8 @@
         // Suma de las versiones
         const suma = lista.reduce((acumulador, obj) => acumulador + obj.version, 0);
         const sumaElement = document.createElement('div');
-        sumaElement.style.clear = 'both'; // Limpiar el float anterior
-        sumaElement.innerHTML = `<strong>suma: </strong> ${suma}`; // Suma con negrita
+        sumaElement.style.clear = 'both';
+        sumaElement.innerHTML = `<strong>suma: </strong> ${suma}`;
         document.body.appendChild(sumaElement);
     }
 
@@ -131,13 +123,3 @@
 
 </body>
 </html>
-=======
-    <title>Lista3-DavidClarkson</title>
-</head>
-<body>
-    
-
-
-</body>
-</html>
->>>>>>> fbe666aac7d855bc38e455360d91a3bf4165a4a3

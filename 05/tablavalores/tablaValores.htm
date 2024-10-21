@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Seno y Coseno</title>
+    <style>
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        .table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .table tr:nth-child(even) {
+            background-color: #dbdbdb;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Tabla de Valores Seno y Coseno</h1>
+
+    <p>1) texto csv :</p>
+    <div id="textOutput"></div>
+
+    <br><br><br>
+    
+    <p>2) tabla de valores en tabla :</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>x</th>
+                <th>cos(x)</th>
+                <th>sen(x)</th>
+                <th>sen(x)</th>
+                <th>14 decimales</th>
+                <th>x con decimales</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+    </table>
+
+    <br><br><br>
+    
+    <canvas id="myCanvas" width="400" height="200" style="border:1px solid #000000;"></canvas>
+
+    <script>
+        function roundN(value, roundN) {
+            return Number(value.toFixed(roundN));
+        }
+
+        const data = [];
+        const step = 0.6;
+        const max = 12.0;
+
+        for (let x = 0; x <= max; x += step) {
+            const cosx = roundN(Math.cos(x), 2);
+            const senx = roundN(Math.sin(x), 2);
+            const senx2 = roundN(Math.sin(x), 14);
+            const x_decimal = roundN(x, 14);
+            const x_with_decimals = x;
+            data.push({ x, cosx, senx, senx2, x_decimal, x_with_decimals });
+        }
+
+        const textOutput = document.getElementById("textOutput");
+        textOutput.innerHTML = "<p>x#cos(x)#sen(x)#sen(x)^2#14 decimales#x con decimales</p>" + "<pre>" + data.map(d => 
+            `${d.x.toFixed(2)}#${d.cosx}#${d.senx}#${d.senx2}#${d.x_decimal}#${d.x_with_decimals}`
+        ).join("\n") + "</pre>";
+
+        const tableBody = document.getElementById("tableBody");
+        data.forEach(d => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${d.x.toFixed(2)}</td>
+                <td>${d.cosx}</td>
+                <td>${d.senx}</td>
+                <td>${d.senx2}</td>
+                <td>${d.x_decimal}</td>
+                <td>${d.x_with_decimals}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        
+
+
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        const canvasWidth = c.width;
+        const canvasHeight = c.height;
+
+        const padding = 40;
+        const graphWidth = canvasWidth - 2 * padding;
+        const graphHeight = canvasHeight - 2 * padding;
+
+        const xMin = 0;
+        const xMax = 12;
+        const yMin = -1;
+        const yMax = 1;
+
+        function scaleX(x) {
+            return padding + (x - xMin) * (graphWidth / (xMax - xMin));
+        }
+
+        function scaleY(y) {
+            return padding + graphHeight - ((y - yMin) * (graphHeight / (yMax - yMin)));
+        }
+
+
+        function drawGraph() {
+            ctx.beginPath();
+            ctx.moveTo(scaleX(data[0].x), scaleY(data[0].senx));
+
+            for (let i = 1; i < data.length; i++) {
+                const x = scaleX(data[i].x);
+                const y = scaleY(data[i].senx);
+                ctx.lineTo(x, y); // Conectar puntos
+            }
+            ctx.strokeStyle = 'red';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+        }
+
+        drawGraph();
+    </script>
+</body>
+</html>
