@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla Valores 2</title>
+</head>
+<body>
+    <canvas id="myCanvas" width="800" height="600"></canvas>
+
+    <script>
+        function roundN(value, roundN) {
+            return Number(value.toFixed(roundN));
+        }
+    
+        const data = [];
+        const step = 0.05;
+        const max = 12.0;
+    
+        for (let x = 0; x <= max; x += step) {
+            const senx = roundN(Math.sin(x), 2);
+            data.push({ x, senx });
+        }
+    
+        const c = document.getElementById("myCanvas");
+        const ctx = c.getContext("2d");
+    
+        const canvasWidth = c.width;
+        const canvasHeight = c.height;
+    
+        const padding = 40;
+        const graphWidth = canvasWidth - 2 * padding;
+        const graphHeight = canvasHeight - 2 * padding * 5;
+    
+        const xMin = 0;
+        const xMax = 12;
+        const yMin = -1;
+        const yMax = 1;
+    
+        function scaleX(x) {
+            return padding + (x - xMin) * (graphWidth / (xMax - xMin));
+        }
+    
+        function scaleY(y) {
+            return padding + ((yMax - y) * (graphHeight / (yMax - yMin))); // Invertir la escala
+        }
+
+        function rainbowColor(factor) {
+            const hue = Math.floor(factor * 360); // Color en el espectro
+            return `hsl(${hue}, 100%, 50%)`; // Color arcoíris
+        }
+
+        function drawGraph() {
+            const verticalSpacing = 0.1; // Espaciado entre las ondas
+
+            for (let n = 0; n < 50; n++) {
+                const color = rainbowColor(n / 50);
+
+                ctx.beginPath();
+                ctx.moveTo(scaleX(data[0].x), scaleY(data[0].senx + (n * verticalSpacing)));
+
+                for (let i = 1; i < data.length; i++) {
+                    const x = scaleX(data[i].x);
+                    const y = scaleY(data[i].senx + (n * verticalSpacing) - 3); // Desplazar cada onda
+                    ctx.lineTo(x, y);
+                }
+
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 5;
+                ctx.stroke();
+            }
+        }
+    
+        drawGraph();
+    </script>
+</body>
+</html>
