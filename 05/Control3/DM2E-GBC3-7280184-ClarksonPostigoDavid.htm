@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control3</title>
+</head>
+<script>
+    let revealIndex = 0;
+    let holaktalBoxes = []; 
+    let clickCount = 0;
+    let maxClicks = 4; 
+
+    function clickCaja() {
+        if (revealIndex < holaktalBoxes.length) {
+            holaktalBoxes[revealIndex].classList.remove('hidden'); 
+            revealIndex++; 
+        } else {
+            if (clickCount < maxClicks) {
+                const allBoxes = document.querySelectorAll('div');
+                
+                allBoxes.forEach(function(box) {
+                    box.innerHTML = clickCount;
+                });
+
+                clickCount++;
+            }
+        }
+    }
+
+    function crearCajas() {
+        var i = 1;
+        var j = 1;
+        var asciiCode = 65;
+
+        while (j <= 10) {
+            var ele = document.createElement('div');
+            document.body.appendChild(ele);
+            ele.id = j;
+            ele.innerHTML = String.fromCharCode(asciiCode);
+            
+            ele.style.backgroundColor = 'yellow';
+            ele.style.width = '45px'; 
+            ele.style.height = '45px';
+            ele.style.margin = '4px';
+            ele.style.float = 'left';
+            ele.style.cursor = 'pointer';
+            
+            ele.style.display = 'flex';
+            ele.style.alignItems = 'center';
+            ele.style.justifyContent = 'center';
+            ele.style.fontSize = '30px';
+            ele.style.fontWeight = 'bold';
+
+            ele.addEventListener('click', clickCaja);
+            asciiCode++;
+            j++;
+        }
+        document.body.appendChild(document.createElement('br'));
+        document.body.appendChild(document.createElement('br'));
+        document.body.appendChild(document.createElement('br'));
+
+        j = 0;
+        while (j <= 9) {
+            var ele = document.createElement('div');
+            document.body.appendChild(ele);
+            ele.id = j;
+            ele.innerHTML = j;
+            
+            ele.style.backgroundColor = 'green';
+            ele.style.width = '45px'; 
+            ele.style.height = '45px';
+            ele.style.margin = '4px';
+            ele.style.float = 'left';
+            ele.style.cursor = 'pointer';
+            
+            ele.style.display = 'flex';
+            ele.style.alignItems = 'center';
+            ele.style.justifyContent = 'center';
+            ele.style.fontSize = '30px';
+            ele.style.fontWeight = 'bold';
+
+            ele.addEventListener('click', clickCaja);
+            asciiCode++;
+            j++;
+        }
+
+        document.body.appendChild(document.createElement('br'));
+        document.body.appendChild(document.createElement('br'));
+        document.body.appendChild(document.createElement('br'));
+
+        j = 0;
+        const hola = "-HOLAKTAL-";
+        while (j <= 9) {
+            var ele = document.createElement('div');
+            document.body.appendChild(ele);
+            ele.id = j + "H";
+            ele.innerHTML = hola[j];
+            
+            ele.style.backgroundColor = 'grey';
+            if (j == 0 || j == 9) {
+                ele.style.backgroundColor = 'white'; 
+            }
+            ele.style.width = '45px'; 
+            ele.style.height = '45px';
+            ele.style.margin = '4px';
+            ele.style.float = 'left';
+            ele.style.cursor = 'pointer';
+            ele.style.display = 'flex';
+            ele.style.alignItems = 'center';
+            ele.style.justifyContent = 'center';
+            ele.style.fontSize = '30px';
+            ele.style.fontWeight = 'bold';
+
+            ele.classList.add('hidden'); 
+            holaktalBoxes.push(ele);
+
+            j++;
+        }
+    }
+
+    window.onload = crearCajas;
+
+</script>
+
+<style>
+    .hidden {
+        visibility: hidden;
+    }
+</style>
+
+<body>
+</body>
+</html>
