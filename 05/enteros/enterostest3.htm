@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>enteros</title>
+
+    <script>
+        const N = 6;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = [];
+
+            for (let i = 0; i < N; i++) {
+                const areaDeTexto = document.createElement('textarea');
+                areaDeTexto.rows = 1;
+                areaDeTexto.style.resize = 'none';
+                areaDeTexto.style.width = '40px';
+                areaDeTexto.style.height = '20px';
+                areaDeTexto.style.paddingTop = '8px';
+                areaDeTexto.style.paddingLeft = '9px';
+                areaDeTexto.maxLength = 4;
+                document.body.appendChild(areaDeTexto);
+                textarea.push(areaDeTexto);
+            }
+
+            const output = document.createElement('div');
+            output.id = 'output';
+            document.body.appendChild(output);
+
+            function todasTextareaVacias() {
+                return textarea.every(areaDeTexto => areaDeTexto.value.trim() === '');
+            }
+
+            function algunTextareaVacio() {
+                return textarea.some(areaDeTexto => areaDeTexto.value.trim() === '');
+            }
+
+            function sonTodosLosValoresEnteros() {
+                return textarea.every(areaDeTexto => {
+                    const valor = parseInt(areaDeTexto.value.trim());
+                    return !isNaN(valor) && Number.isInteger(valor);
+                });
+            }
+
+            function ordenarValoresAscendente() {
+                const valores = textarea.map(areaDeTexto => parseInt(areaDeTexto.value.trim()));
+                valores.sort((a, b) => a - b);
+                return valores;
+            }
+
+            function ordenarValoresDescendente() {
+                const valores = textarea.map(areaDeTexto => parseInt(areaDeTexto.value.trim()));
+                valores.sort((a, b) => b - a);
+                return valores;
+            }
+
+            function mostrarResultados() {
+                const pre = document.createElement('pre');
+                pre.style.backgroundColor = '#DDD';
+
+                if (todasTextareaVacias()) {
+                    pre.textContent = 'Rellene con enteros';
+                } else if (algunTextareaVacio()) {
+                    const count = textarea.filter(areaDeTexto => areaDeTexto.value.trim() === '').length;
+                    pre.textContent = `Faltan ${count} por rellenar complete`;
+                } else if (!sonTodosLosValoresEnteros()) {
+                    pre.textContent = 'Alguna no es entero';
+                } else {
+                    const valoresAscendentes = ordenarValoresAscendente();
+                    const valoresDescendentes = ordenarValoresDescendente();
+                    pre.textContent = `Ascendente:  ${valoresAscendentes.join(', ')}\nDescendente: ${valoresDescendentes.join(', ')}`;
+                }
+
+                output.innerHTML = '';
+                output.appendChild(pre);
+            }
+
+            textarea.forEach(areaDeTexto => {
+                areaDeTexto.addEventListener('input', mostrarResultados);
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

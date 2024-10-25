@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>enteros</title>
+
+    <script>
+        const N = 6;
+
+        const textarea = [];
+
+        for (let i = 0; i < N; i++) {
+            const areaDeTexto = document.createElement('textarea');
+            areaDeTexto.rows = 1;
+            areaDeTexto.style.resize = 'none';
+            areaDeTexto.style.width = '40px';
+            areaDeTexto.style.height = '20px';
+            areaDeTexto.style.paddingTop = '8px';
+            areaDeTexto.style.paddingLeft = '9px';
+            areaDeTexto.maxLength = 4;
+            document.body.appendChild(areaDeTexto);
+            textarea.push(areaDeTexto);
+        }
+
+        const output = document.createElement('div');
+        output.id = 'output';
+        document.body.appendChild(output);
+
+        function todasTextareaVacias() {
+            for (let i = 0; i < textarea.length; i++) {
+                if (textarea[i].value.trim() !== '') {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function algunTextareaVacio() {
+            for (let i = 0; i < textarea.length; i++) {
+                if (textarea[i].value.trim() === '') {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function sonTodosLosValoresEnteros() {
+            for (let i = 0; i < textarea.length; i++) {
+                const valor = parseInt(textarea[i].value.trim());
+                if (isNaN(valor) || !Number.isInteger(valor)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function ordenarValoresAscendente() {
+            const valores = textarea.map(function(areaDeTexto) {
+                return parseInt(areaDeTexto.value.trim());
+            });
+            valores.sort(function(a, b) {
+                return a - b;
+            });
+            return valores;
+        }
+
+        function ordenarValoresDescendente() {
+            const valores = textarea.map(function(areaDeTexto) {
+                return parseInt(areaDeTexto.value.trim());
+            });
+            valores.sort(function(a, b) {
+                return b - a;
+            });
+            return valores;
+        }
+
+        function mostrarResultados() {
+            const pre = document.createElement('pre');
+            const output = document.getElementById('output');
+            pre.style.backgroundColor= '#DDD';
+            
+            if (todasTextareaVacias()) {
+                pre.textContent = 'Rellene con enteros';
+            } else if (algunTextareaVacio()) {
+                const count = textarea.filter(areaDeTexto => areaDeTexto.value.trim() === '').length;
+                pre.textContent = `Faltan ${count} por rellenar complete`;
+            } else if (!sonTodosLosValoresEnteros()) {
+                pre.textContent = 'Alguna no es entero';
+            } else {
+                const valoresAscendentes = ordenarValoresAscendente();
+                const valoresDescendentes = ordenarValoresDescendente();
+                pre.textContent = `Ascendente: ${valoresAscendentes.join(', ')}\nDescendente: ${valoresDescendentes.join(', ')}`;
+            }
+            
+            output.innerHTML = '';
+            output.appendChild(pre);
+        }
+
+        textarea.forEach(areaDeTexto => {
+            areaDeTexto.addEventListener('input', mostrarResultados);
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
