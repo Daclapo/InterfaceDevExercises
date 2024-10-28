@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cascada</title>
+</head>
+<body>
+</body>
+<script>
+    var sitios = [
+        'A1#america#00',
+        'A2#europa#00',
+        'A3#africa#00',
+        'A4#asia#00',
+        'B1#canada#A1',
+        'B2#eeuu#A1',
+        'B3#brasil#A1',
+        'B4#argentina#A1',
+        'B5#urugay#A1',
+        'B6#chile#A1',
+        'B7#francia#A2',
+        'B8#italia#A2',
+        'C1#toronto#B1',
+        'C2#quebec#B1',
+        'C3#lyon#B7',
+        'C4#paris#B7',
+        'C5#bayona#B7',
+        'C6#nantes#B7',
+        'C7#toulouse#B7'
+    ];
+
+    var menu = document.createElement('div');
+    var breadcrumb = document.createElement('div');
+    document.body.appendChild(breadcrumb);
+    document.body.appendChild(menu);
+
+    var currentLevel = '00';
+    var breadcrumbTrail = [];
+
+    function updateMenu(level) {
+        menu.innerHTML = '';
+        var items = sitios.filter(item => item.split('#')[2] === level);
+        items.forEach(item => {
+            var parts = item.split('#');
+            var menuItem = document.createElement('div');
+            menuItem.textContent = parts[1];
+            menuItem.addEventListener('click', () => {
+                breadcrumbTrail.push(parts[1]);
+                updateBreadcrumb();
+                updateMenu(parts[0]);
+            });
+            menu.appendChild(menuItem);
+        });
+    }
+
+    function updateBreadcrumb() {
+        breadcrumb.innerHTML = '';
+        breadcrumbTrail.forEach((crumb, index) => {
+            var crumbItem = document.createElement('span');
+            crumbItem.textContent = crumb;
+            crumbItem.addEventListener('click', () => {
+                breadcrumbTrail = breadcrumbTrail.slice(0, index + 1);
+                updateBreadcrumb();
+                updateMenu(sitios.find(item => item.split('#')[1] === crumb).split('#')[0]);
+            });
+            breadcrumb.appendChild(crumbItem);
+            if (index < breadcrumbTrail.length - 1) {
+                breadcrumb.appendChild(document.createTextNode(' > '));
+            }
+        });
+    }
+
+    updateMenu(currentLevel);
+</script>
+</html>
