@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Cascada</title>
+</head>
+<body>
+</body>
+<script>
+    var sitios = [
+        { id: 'A1', nombre: 'america', padre: '00' },
+        { id: 'A2', nombre: 'europa', padre: '00' },
+        { id: 'A3', nombre: 'africa', padre: '00' },
+        { id: 'A4', nombre: 'asia', padre: '00' },
+        { id: 'B1', nombre: 'canada', padre: 'A1' },
+        { id: 'B2', nombre: 'eeuu', padre: 'A1' },
+        { id: 'B3', nombre: 'brasil', padre: 'A1' },
+        { id: 'B4', nombre: 'argentina', padre: 'A1' },
+        { id: 'B5', nombre: 'uruguay', padre: 'A1' },
+        { id: 'B6', nombre: 'chile', padre: 'A1' },
+        { id: 'B7', nombre: 'francia', padre: 'A2' },
+        { id: 'B8', nombre: 'italia', padre: 'A2' },
+        { id: 'B9', nombre: 'nigeria', padre: 'A3' },
+        { id: 'B10', nombre: 'egipto', padre: 'A3' },
+        { id: 'B11', nombre: 'sudafrica', padre: 'A3' },
+        { id: 'B12', nombre: 'kenia', padre: 'A3' },
+        { id: 'B13', nombre: 'china', padre: 'A4' },
+        { id: 'B14', nombre: 'japon', padre: 'A4' },
+        { id: 'B15', nombre: 'india', padre: 'A4' },
+        { id: 'B16', nombre: 'corea del sur', padre: 'A4' },
+        { id: 'C1', nombre: 'toronto', padre: 'B1' },
+        { id: 'C2', nombre: 'quebec', padre: 'B1' },
+        { id: 'C3', nombre: 'lyon', padre: 'B7' },
+        { id: 'C4', nombre: 'paris', padre: 'B7' },
+        { id: 'C5', nombre: 'bayona', padre: 'B7' },
+        { id: 'C6', nombre: 'nantes', padre: 'B7' },
+        { id: 'C7', nombre: 'toulouse', padre: 'B7' }
+    ];
+
+    var menu = document.createElement('div');
+    var breadcrumb = document.createElement('div');
+    document.body.appendChild(breadcrumb);
+    document.body.appendChild(menu);
+
+    menu.id = 'menu';
+    breadcrumb.id = 'breadcrumb';
+
+    var style = document.createElement('style');
+    style.innerHTML = `
+        .menu-item {
+            padding: 10px;
+            margin: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 5px;
+        }
+        .breadcrumb-item {
+            cursor: pointer;
+            color: #007BFF;
+        }
+    `;
+    document.head.appendChild(style);
+
+
+    var currentLevel = '00';
+    var breadcrumbTrail = [];
+
+    function updateMenu(level) {
+        menu.innerHTML = '';
+        var items = sitios.filter(item => item.padre === level);
+        items.forEach(item => {
+            var menuItem = document.createElement('div');
+            menuItem.textContent = item.nombre;
+            menuItem.className = 'menu-item';
+            menuItem.addEventListener('click', () => {
+                breadcrumbTrail.push(item);
+                updateBreadcrumb();
+                updateMenu(item.id);
+            });
+            menu.appendChild(menuItem);
+        });
+    }
+
+    function updateBreadcrumb() {
+        breadcrumb.innerHTML = '';
+        
+        var homeItem = document.createElement('span');
+        homeItem.textContent = 'home';
+        homeItem.className = 'breadcrumb-item';
+        homeItem.addEventListener('click', () => {
+            breadcrumbTrail = [];
+            updateBreadcrumb();
+            updateMenu('00');
+        });
+        breadcrumb.appendChild(homeItem);
+        
+        if (breadcrumbTrail.length > 0) {
+            breadcrumb.appendChild(document.createTextNode(' > '));
+        }
+
+        breadcrumbTrail.forEach((crumb, index) => {
+            var crumbItem = document.createElement('span');
+            crumbItem.textContent = crumb.nombre;
+            crumbItem.className = 'breadcrumb-item';
+            crumbItem.addEventListener('click', () => {
+                breadcrumbTrail = breadcrumbTrail.slice(0, index + 1);
+                updateBreadcrumb();
+                updateMenu(crumb.id);
+            });
+            breadcrumb.appendChild(crumbItem);
+            if (index < breadcrumbTrail.length - 1) {
+                breadcrumb.appendChild(document.createTextNode(' > '));
+            }
+        });
+    }
+
+    updateMenu(currentLevel);
+</script>
+</html>
