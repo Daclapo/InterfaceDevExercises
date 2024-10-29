@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fechas Ejercicio</title>
+</head>
+<body>
+    <script>
+        const estilo = document.createElement('style');
+        estilo.textContent = `
+            table {
+                width: 75%;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #AAC;
+                padding: 5px;
+                text-align: center;
+            }
+        `;
+        document.head.appendChild(estilo);
+
+        const titulo1 = document.createElement('h3');
+        titulo1.textContent = 'Ejemplo de control input type="date" impreso en ISO Date';
+        document.body.appendChild(titulo1);
+
+        const tablaEntrada = document.createElement('table');
+        const filaEntrada = document.createElement('tr');
+        tablaEntrada.style.width = '30%';
+
+        const celdaEntrada = document.createElement('td');
+        const entradaFecha = document.createElement('input');
+        entradaFecha.type = 'date';
+        entradaFecha.id = 'entradaFecha';
+        celdaEntrada.appendChild(entradaFecha);
+        filaEntrada.appendChild(celdaEntrada);
+
+        const celdaTexto = document.createElement('td');
+        celdaTexto.textContent = 'ISO date';
+        filaEntrada.appendChild(celdaTexto);
+
+        tablaEntrada.appendChild(filaEntrada);
+        document.body.appendChild(tablaEntrada);
+
+        const mostrarEntradaFecha = document.createElement('div');
+        mostrarEntradaFecha.id = 'mostrarEntradaFecha';
+        document.body.appendChild(mostrarEntradaFecha);
+
+        const secciones = [
+            { title: 'Fechas Generadas', id: 'mostrarFechas' },
+            { title: 'Fechas Ordenadas Ascendentemente; Menor a Mayor', id: 'ordenadasAscendente' },
+            { title: 'Fechas Ordenadas Descendentemente, Mayor a Menor', id: 'ordenadasDescendente' },
+            { title: 'Diferencias entre Fechas en dias', id: 'diferenciasFechas' },
+            { title: 'Diferencia Máxima y Mínima', id: 'diferenciaMaxMin' },
+            { title: 'Fecha más Alta y más Baja', id: 'fechaMaxMin' },
+            { title: 'Rango de Fechas', id: 'rangoFechas' }
+        ];
+
+        secciones.forEach(seccion => {
+            document.body.appendChild(document.createElement('br'));
+            
+            const h3 = document.createElement('h3');
+            h3.textContent = seccion.title;
+            document.body.appendChild(h3);
+
+            const div = document.createElement('div');
+            div.id = seccion.id;
+            document.body.appendChild(div);
+        });
+
+        document.getElementById('entradaFecha').addEventListener('change', function() {
+            const fecha = new Date(this.value);
+            document.getElementById('mostrarEntradaFecha').textContent = fecha.toISOString();
+        });
+
+        function obtenerFechaAleatoria(año) {
+            const inicio = new Date(año, 0, 1);
+            const fin = new Date(año, 11, 31);
+            return new Date(inicio.getTime() + Math.random() * (fin.getTime() - inicio.getTime()));
+        }
+
+        const fechas = [];
+        for (let i = 0; i < 24; i++) {
+            fechas.push(obtenerFechaAleatoria(2019));
+        }
+
+        function mostrarFechas(fechas, idContenedor) {
+            const contenedor = document.getElementById(idContenedor);
+            contenedor.innerHTML = '';
+            const tabla = document.createElement('table');
+            const tbody = document.createElement('tbody');
+            for (let i = 0; i < fechas.length; i += 6) {
+                const fila = document.createElement('tr');
+                for (let j = i; j < i + 6; j++) {
+                    const celda = document.createElement('td');
+                    celda.textContent = fechas[j].toISOString().split('T')[0];
+                    fila.appendChild(celda);
+                }
+                tbody.appendChild(fila);
+            }
+            tabla.appendChild(tbody);
+            contenedor.appendChild(tabla);
+        }
+
+        function mostrarDiferenciasFechas(fechas, idContenedor) {
+            const contenedor = document.getElementById(idContenedor);
+            contenedor.innerHTML = '';
+            const tabla = document.createElement('table');
+            const tbody = document.createElement('tbody');
+            const fechasOrdenadas = ordenarFechas(fechas);
+
+            for (let i = 0; i < fechasOrdenadas.length - 1; i += 4) {
+                const fila = document.createElement('tr');
+                for (let j = i; j < i + 4 && j < fechasOrdenadas.length - 1; j++) {
+                    const celda = document.createElement('td');
+                    const fechaActual = fechasOrdenadas[j];
+                    const fechaSiguiente = fechasOrdenadas[j + 1];
+                    const diferencia = Math.abs((fechaSiguiente - fechaActual) / (1000 * 60 * 60 * 24));
+                    celda.textContent = `${fechaActual.toISOString().split('T')[0]} ; ${Math.round(diferencia)}`;
+                    fila.appendChild(celda);
+                }
+                tbody.appendChild(fila);
+            }
+            tabla.appendChild(tbody);
+            contenedor.appendChild(tabla);
+        }
+
+        function ordenarFechas(fechas, ascendente = true) {
+            return fechas.sort((a, b) => ascendente ? a - b : b - a);
+        }
+
+        function diferenciasFechas(fechas) {
+            const diferencias = [];
+            for (let i = 0; i < fechas.length - 1; i++) {
+                const diferencia = Math.abs((fechas[i + 1] - fechas[i]) / (1000 * 60 * 60 * 24));
+                diferencias.push(Math.round(diferencia));
+            }
+            return diferencias;
+        }
+
+        function diferenciaMaxMin(diferencias) {
+            return {
+                max: Math.max(...diferencias),
+                min: Math.min(...diferencias)
+            };
+        }
+
+        function rangoFechas(fechas) {
+            const fechasOrdenadas = ordenarFechas(fechas);
+            const fechaMin = fechasOrdenadas[0];
+            const fechaMax = fechasOrdenadas[fechasOrdenadas.length - 1];
+            const diferencia = Math.abs((fechaMax - fechaMin) / (1000 * 60 * 60 * 24));
+            return {
+                fechaMin,
+                fechaMax,
+                diferencia: Math.round(diferencia)
+            };
+        }
+
+        function fechaMaxMin(fechas) {
+            const fechasOrdenadas = ordenarFechas(fechas);
+            const fechaMin = fechasOrdenadas[0];
+            const fechaMax = fechasOrdenadas[fechasOrdenadas.length - 1];
+            return {
+                fechaMin,
+                fechaMax
+            };
+        }
+
+        mostrarFechas(fechas, 'mostrarFechas');
+        mostrarFechas(ordenarFechas([...fechas]), 'ordenadasAscendente');
+        mostrarFechas(ordenarFechas([...fechas], false), 'ordenadasDescendente');
+        mostrarDiferenciasFechas(fechas, 'diferenciasFechas');
+
+        const diferencias = diferenciasFechas(fechas);
+        const diferenciaMaxMinima = diferenciaMaxMin(diferencias);
+        document.getElementById('diferenciaMaxMin').textContent = `Diferencia Máxima: ${diferenciaMaxMinima.max} días, Diferencia Mínima: ${diferenciaMaxMinima.min} días`;
+
+        const rango = rangoFechas(fechas);
+        document.getElementById('rangoFechas').textContent = `Fecha Mínima: ${rango.fechaMin.toISOString().split('T')[0]}, Fecha Máxima: ${rango.fechaMax.toISOString().split('T')[0]}, Días Entre fecha min y max: ${rango.diferencia} días`;
+
+        const maxMin = fechaMaxMin(fechas);
+        document.getElementById('fechaMaxMin').textContent = `Fecha más Baja: ${maxMin.fechaMin.toISOString().split('T')[0]}, Fecha más Alta: ${maxMin.fechaMax.toISOString().split('T')[0]}`;
+    </script>
+</body>
+</html>

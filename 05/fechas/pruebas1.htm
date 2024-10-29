@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fechas Ejercicio</title>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+        }
+        .grid-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <input type="date" id="dateInput">
+    <div id="dateInputDisplay"></div>
+
+    <h2>Fechas Generadas</h2>
+    <div id="dateDisplay" class="grid-container"></div>
+
+    <h2>Fechas Ordenadas Ascendentemente</h2>
+    <div id="sortedAscending" class="grid-container"></div>
+
+    <h2>Fechas Ordenadas Descendentemente</h2>
+    <div id="sortedDescending" class="grid-container"></div>
+
+    <h2>Diferencias entre Fechas</h2>
+    <div id="dateDifferences" class="grid-container"></div>
+
+    <h2>Diferencia Máxima y Mínima</h2>
+    <div id="maxMinDifference"></div>
+
+    <h2>Rango de Fechas</h2>
+    <div id="dateRange"></div>
+
+    <script>
+        document.getElementById('dateInput').addEventListener('change', function() {
+            const date = new Date(this.value);
+            document.getElementById('dateInputDisplay').textContent = date.toISOString();
+        });
+
+        function getRandomDate(year) {
+            const start = new Date(year, 0, 1);
+            const end = new Date(year, 11, 31);
+            return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+        }
+
+        const dates = [];
+        for (let i = 0; i < 24; i++) {
+            dates.push(getRandomDate(2019));
+        }
+
+        function displayDates(dates, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            dates.forEach(date => {
+                const div = document.createElement('div');
+                div.className = 'grid-item';
+                div.textContent = date.toISOString().split('T')[0];
+                container.appendChild(div);
+            });
+        }
+
+        function sortDates(dates, ascending = true) {
+            return dates.sort((a, b) => ascending ? a - b : b - a);
+        }
+
+        function dateDifferences(dates) {
+            const differences = [];
+            for (let i = 0; i < dates.length - 1; i++) {
+                const diff = Math.abs((dates[i + 1] - dates[i]) / (1000 * 60 * 60 * 24));
+                differences.push(diff.toFixed(0));
+            }
+            return differences;
+        }
+
+        function maxMinDifference(differences) {
+            return {
+                max: Math.max(...differences),
+                min: Math.min(...differences)
+            };
+        }
+
+        function dateRange(dates) {
+            const sortedDates = sortDates(dates);
+            const minDate = sortedDates[0];
+            const maxDate = sortedDates[sortedDates.length - 1];
+            const diff = Math.abs((maxDate - minDate) / (1000 * 60 * 60 * 24));
+            return {
+                minDate,
+                maxDate,
+                diff
+            };
+        }
+
+        displayDates(dates, 'dateDisplay');
+        displayDates(sortDates([...dates]), 'sortedAscending');
+        displayDates(sortDates([...dates], false), 'sortedDescending');
+
+        const differences = dateDifferences(dates);
+        displayDates(differences.map(diff => new Date(0, 0, diff)), 'dateDifferences');
+
+        const maxMinDiff = maxMinDifference(differences);
+        document.getElementById('maxMinDifference').textContent = `Max Difference: ${maxMinDiff.max} days, Min Difference: ${maxMinDiff.min} days`;
+
+        const range = dateRange(dates);
+        document.getElementById('dateRange').textContent = `Min Date: ${range.minDate.toISOString().split('T')[0]}, Max Date: ${range.maxDate.toISOString().split('T')[0]}, Days Between: ${range.diff} days`;
+    </script>
+</body>
+</html>
