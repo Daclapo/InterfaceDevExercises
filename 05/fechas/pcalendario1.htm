@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calendario</title>
+    <script>
+        function createStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 0px solid black;
+                    padding: 1px;
+                    text-align: left;
+                }
+                tr {
+                    margin: 0;
+                }
+                .month {
+                    text-align: right;
+                    font-size: 20px;
+                }
+                .day {
+                    display: inline-block;
+                    width: 20px;
+                    height: 40px;
+                    text-align: center;
+                    font-size: 14px;
+                }
+                .day-number {
+                    display: block;
+                }
+                .day-name {
+                    display: block;
+                    font-size: 10px;
+                }
+                .normal {
+                    color: black;
+                }
+                .apagado {
+                    color: lightgray;
+                    background-color: #FFFFE0; 
+                }
+                .laborable {
+                    /* No se necesita color de fondo aquí */
+                }
+                .festivo {
+                    /* No se necesita color de fondo aquí */
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
+        function createCalendar(year) {
+            const monthNames = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+            const dayNames = ["D", "L", "M", "X", "J", "V", "S"];
+            const table = document.createElement('table');
+            const tbody = document.createElement('tbody');
+            
+            for (let month = 0; month < 12; month++) {
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const firstDay = new Date(year, month, 1).getDay();
+                const lastDay = new Date(year, month, daysInMonth).getDay();
+                const row = document.createElement('tr');
+                
+                const monthCell = document.createElement('td');
+                monthCell.className = 'month';
+                monthCell.textContent = monthNames[month];
+                row.appendChild(monthCell);
+                
+                const daysCell = document.createElement('td');
+                
+                // Add at least one week from the previous month
+                const prevMonthDays = firstDay === 0 ? 6 : firstDay - 1;
+                const prevMonthLastDay = new Date(year, month, 0).getDate();
+                const startPrevMonthDay = prevMonthLastDay - prevMonthDays - 6;
+                for (let i = startPrevMonthDay; i <= prevMonthLastDay; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day apagado';
+                    const dayNumber = document.createElement('span');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = i;
+                    const dayOfWeek = new Date(year, month - 1, i).getDay();
+                    const dayName = document.createElement('span');
+                    dayName.className = 'day-name';
+                    dayName.textContent = dayNames[dayOfWeek];
+                    dayDiv.appendChild(dayNumber);
+                    dayDiv.appendChild(dayName);
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        dayDiv.style.color = 'lightcoral';
+                    }
+                    daysCell.appendChild(dayDiv);
+                }
+                
+                // Add days of the current month
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day normal';
+                    dayDiv.style.backgroundColor = '#E8E401'; // Set background color for current month days
+                    const dayNumber = document.createElement('span');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = i;
+                    const dayOfWeek = new Date(year, month, i).getDay();
+                    const dayName = document.createElement('span');
+                    dayName.className = 'day-name';
+                    dayName.textContent = dayNames[dayOfWeek];
+                    dayDiv.appendChild(dayNumber);
+                    dayDiv.appendChild(dayName);
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        dayDiv.style.color = 'red';
+                    } else {
+                        dayDiv.style.color = 'black';   
+                    }
+                    daysCell.appendChild(dayDiv);
+                }
+                
+                // Add days from the next month
+                const nextMonthDays = lastDay === 0 ? 6 : 7 - lastDay;
+                for (let i = 1; i <= nextMonthDays; i++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'day apagado';
+                    const dayNumber = document.createElement('span');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = i;
+                    const dayOfWeek = new Date(year, month + 1, i).getDay();
+                    const dayName = document.createElement('span');
+                    dayName.className = 'day-name';
+                    dayName.textContent = dayNames[dayOfWeek];
+                    dayDiv.appendChild(dayNumber);
+                    dayDiv.appendChild(dayName);
+                    if (dayOfWeek === 0 || dayOfWeek === 6) {
+                        dayDiv.style.color = 'lightcoral';
+                    }
+                    daysCell.appendChild(dayDiv);
+                }
+
+                if (nextMonthDays < 7) {
+                    for (let i = nextMonthDays + 1; i <= nextMonthDays + 7; i++) {
+                        const dayDiv = document.createElement('div');
+                        dayDiv.className = 'day apagado';
+                        const dayNumber = document.createElement('span');
+                        dayNumber.className = 'day-number';
+                        dayNumber.textContent = i;
+                        const dayOfWeek = new Date(year, month + 1, i).getDay();
+                        const dayName = document.createElement('span');
+                        dayName.className = 'day-name';
+                        dayName.textContent = dayNames[dayOfWeek];
+                        dayDiv.appendChild(dayNumber);
+                        dayDiv.appendChild(dayName);
+                        if (dayOfWeek === 0 || dayOfWeek === 6) {
+                            dayDiv.style.color = 'lightcoral';
+                        }
+                        daysCell.appendChild(dayDiv);
+                    }
+                }
+                
+                row.appendChild(daysCell);
+                tbody.appendChild(row);
+            }
+            
+            table.appendChild(tbody);
+            document.body.appendChild(table);
+        }
+        
+        window.onload = function() {
+            createStyles();
+            const h1 = document.createElement('h1');
+            h1.textContent = 'Año 2023';
+            document.body.insertBefore(h1, document.body.firstChild);
+            createCalendar(2023);
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
