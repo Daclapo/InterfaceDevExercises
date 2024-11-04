@@ -16,9 +16,11 @@
         const data = [];
         const step = 0.05;
         const max = 12.0;
+
     
         for (let x = 0; x <= max; x += step) {
             const senx = roundN(Math.sin(x), 2);
+            senx = roundN(Math.sin(x), 2);
             data.push({ x, senx });
         }
     
