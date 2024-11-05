@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tres nodos</title>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const createButton = document.createElement("button");
+        createButton.textContent = "Crear Nodo";
+        createButton.onclick = createNode;
+
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Borrar Nodo";
+        deleteButton.onclick = deleteNode;
+        deleteButton.disabled = true;
+
+        const buttonContainer = document.createElement("div");
+        buttonContainer.appendChild(createButton);
+        buttonContainer.appendChild(deleteButton);
+
+        document.body.appendChild(buttonContainer);
+
+        for (let i = 0; i < 3; i++) {
+            createNode();
+        }
+
+        function createNode() {
+            const node = document.createElement("div");
+            node.className = "nodo";
+            node.textContent = "Nodo " + (document.querySelectorAll(".nodo").length + 1);
+            document.body.insertBefore(node, buttonContainer);
+            deleteButton.disabled = false;
+        }
+
+        function deleteNode() {
+            const nodes = document.querySelectorAll(".nodo");
+            if (nodes.length > 0) {
+                document.body.removeChild(nodes[nodes.length - 1]);
+            }
+            if (nodes.length <= 1) {
+                deleteButton.disabled = true;
+            }
+        }
+    });
+</script>
+</head>
+<body>
+    
+</body>
+</html>

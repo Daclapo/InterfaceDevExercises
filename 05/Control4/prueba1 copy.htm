@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>control4</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var container = document.createElement("div");
+            container.style.backgroundColor = "lightblue";
+            container.style.border = "2px solid black";
+            container.style.width = "600px";
+            container.style.height = "300px";
+            container.style.position = "relative";
+            container.style.padding = "30px";
+            document.body.appendChild(container);
+
+            var table = document.createElement("table");
+            table.style.width = "100%";
+            table.style.height = "200px";
+            container.appendChild(table);
+
+            var colors = ["orange", "green", "hotpink"];
+            var lineWidths = [3, 7, 11];
+            for (var i = 0; i < 3; i++) {
+                var row = document.createElement("tr");
+                for (var j = 0; j < 7; j++) {
+                    var cell = document.createElement("td");
+                    cell.style.width = "14.28%";
+                    cell.style.height = "66px";
+                    cell.style.textAlign = "center";
+                    var canvas = document.createElement("canvas");
+                    canvas.width = 50;
+                    canvas.height = 50;
+                    var ctx = canvas.getContext("2d");
+                    ctx.beginPath();
+                    ctx.arc(25, 25, 20, 0, (2 * Math.PI) - 0.5);
+                    ctx.strokeStyle = colors[i];
+                    ctx.lineWidth = lineWidths[i];
+                    ctx.stroke();
+                    cell.appendChild(canvas);
+                    row.appendChild(cell);
+                }
+                table.appendChild(row);
+            }
+
+            var fecha1 = document.createElement("p");
+            var fecha2 = document.createElement("p");
+            container.appendChild(fecha1);
+            container.appendChild(fecha2);
+
+            fecha1.style.fontSize = "20px";
+            fecha1.style.fontFamily = "Courier New";
+            fecha2.style.fontSize = "20px";
+            fecha2.style.fontFamily = "Courier New";
+
+            var today = new Date();
+            var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+
+            fecha1.innerHTML = "fecha 1: " + today.toLocaleDateString('en-US', options);
+            fecha2.innerHTML = "fecha 2: " + today.toLocaleDateString('en-US', options);
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
