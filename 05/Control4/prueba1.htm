@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>control4</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var contenedor = document.createElement("div");
+
+            contenedor.style.width = "600px";
+            contenedor.style.height = "300px";
+            contenedor.style.backgroundColor = "lightblue";
+            contenedor.style.border = "1px solid black";
+            document.body.appendChild(contenedor);
+
+            var canv = document.createElement("canvas");
+            canv.style.width='600px';
+            canv.style.height='200px';
+
+            contenedor.appendChild(canv);
+
+            var fecha1 = document.createElement("p");
+            var fecha2 = document.createElement("p");
+            fecha1.innerHTML = "Fecha 1: 01/01/2020";
+            fecha2.innerHTML = "Fecha 2: 31/12/2020";
+
+            contenedor.appendChild(fecha1);
+            contenedor.appendChild(fecha2);
+        });
+    </script>
+
+</head>
+<body>
+</body>
+</html>
