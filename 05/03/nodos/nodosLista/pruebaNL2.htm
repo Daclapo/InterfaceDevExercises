@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nodos lista</title>
+    <style>
+        .container {
+            display: flex;
+        }
+        .buttons-container, .output-container {
+            width: 300px;
+            height: 500px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .output-container {
+            border-left: 1px solid #ccc;
+        }
+        .output-container div {
+            margin-bottom: 5px;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+
+            const container = document.createElement('div');
+            container.className = 'container';
+            body.appendChild(container);
+
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.className = 'buttons-container';
+            container.appendChild(buttonsContainer);
+
+            const outputContainer = document.createElement('div');
+            outputContainer.className = 'output-container';
+            container.appendChild(outputContainer);
+
+            const inputPosition = document.createElement('input');
+            inputPosition.type = 'number';
+            inputPosition.id = 'inputPosition';
+            inputPosition.placeholder = 'Position';
+            buttonsContainer.appendChild(inputPosition);
+
+            const inputColor = document.createElement('input');
+            inputColor.type = 'text';
+            inputColor.id = 'inputColor';
+            inputColor.placeholder = 'Color';
+            buttonsContainer.appendChild(inputColor);
+
+            const addButton = (text, onClick) => {
+                const button = document.createElement('button');
+                button.textContent = text;
+                button.addEventListener('click', onClick);
+                buttonsContainer.appendChild(button);
+            };
+
+            const updateDivIds = () => {
+                const divs = outputContainer.querySelectorAll('div');
+                divs.forEach((div, index) => {
+                    div.id = `div${index + 1}`;
+                });
+            };
+
+            const addDiv = (position) => {
+                const newDiv = document.createElement('div');
+                newDiv.textContent = `Div ${outputContainer.querySelectorAll('div').length + 1}`;
+                if (position === 'start') {
+                    outputContainer.insertBefore(newDiv, outputContainer.querySelector('div'));
+                } else if (position === 'end') {
+                    outputContainer.appendChild(newDiv);
+                } else if (typeof position === 'number') {
+                    const divs = outputContainer.querySelectorAll('div');
+                    if (position >= 0 && position < divs.length) {
+                        outputContainer.insertBefore(newDiv, divs[position]);
+                    } else {
+                        outputContainer.appendChild(newDiv);
+                    }
+                }
+                updateDivIds();
+            };
+
+            const removeFirstDiv = () => {
+                const firstDiv = outputContainer.querySelector('div');
+                if (firstDiv) {
+                    outputContainer.removeChild(firstDiv);
+                    updateDivIds();
+                }
+            };
+
+            const changeAllDivColors = (color) => {
+                outputContainer.querySelectorAll('div').forEach(div => {
+                    div.style.backgroundColor = color;
+                });
+            };
+
+            const changeOddDivColors = (color) => {
+                outputContainer.querySelectorAll('div').forEach((div, index) => {
+                    if (index % 2 === 0) {
+                        div.style.backgroundColor = color;
+                    }
+                });
+            };
+
+            const changeSpecificDivColor = (index, color) => {
+                const divs = outputContainer.querySelectorAll('div');
+                if (index >= 0 && index < divs.length) {
+                    divs[index].style.backgroundColor = color;
+                }
+            };
+
+            const showLastAddedDiv = () => {
+                const divs = outputContainer.querySelectorAll('div');
+                if (divs.length > 0) {
+                    alert(`Last added div: ${divs[divs.length - 1].textContent}`);
+                }
+            };
+
+            const showDivCount = () => {
+                alert(`Total divs: ${outputContainer.querySelectorAll('div').length}`);
+            };
+
+            const showDivListAndColors = () => {
+                const divs = outputContainer.querySelectorAll('div');
+                const list = Array.from(divs).map(div => `${div.textContent}: ${div.style.backgroundColor || 'none'}`).join('\n');
+                alert(list);
+            };
+
+            const limitMaxDivs = (max) => {
+                const divs = outputContainer.querySelectorAll('div');
+                while (divs.length > max) {
+                    outputContainer.removeChild(divs[divs.length - 1]);
+                }
+                updateDivIds();
+            };
+
+            const checkZeroDivs = () => {
+                if (outputContainer.querySelectorAll('div').length === 0) {
+                    alert('No divs present');
+                }
+            };
+
+            addButton('Add Div at Start', () => addDiv('start'));
+            addButton('Add Div at End', () => addDiv('end'));
+            addButton('Add Div at Position', () => addDiv(parseInt(inputPosition.value, 10)));
+            addButton('Remove First Div', removeFirstDiv);
+            addButton('Change All Div Colors', () => changeAllDivColors(inputColor.value));
+            addButton('Change Odd Div Colors', () => changeOddDivColors(inputColor.value));
+            addButton('Change Specific Div Color', () => changeSpecificDivColor(parseInt(inputPosition.value, 10), inputColor.value));
+            addButton('Show Last Added Div', showLastAddedDiv);
+            addButton('Show Div Count', showDivCount);
+            addButton('Show Div List and Colors', showDivListAndColors);
+            addButton('Limit Max Divs to 5', () => limitMaxDivs(5));
+            addButton('Check Zero Divs', checkZeroDivs);
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

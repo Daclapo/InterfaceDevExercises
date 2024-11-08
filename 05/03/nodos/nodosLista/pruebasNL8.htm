@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Nodos</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+
+            // Título
+            const h3 = document.createElement("h3");
+            h3.textContent = "MANEJAR UNA LISTA DE NODOS";
+            body.appendChild(h3);
+
+            // Contenedores de la lista y la información
+            const containerLeft = document.createElement("div");
+            const containerRight = document.createElement("div");
+
+            // Estilos del contenedor principal izquierdo (sin borde)
+            containerLeft.style.width = "300px";
+            containerLeft.style.height = "500px";
+            containerLeft.style.padding = "10px";
+            containerLeft.style.margin = "10px";
+            containerLeft.style.float = "left";
+            body.appendChild(containerLeft);
+
+            // Estilos del contenedor principal derecho
+            containerRight.style.width = "300px";
+            containerRight.style.height = "410px";
+            containerRight.style.border = "1px solid black";
+            containerRight.style.padding = "10px";
+            containerRight.style.margin = "10px";
+            containerRight.style.float = "left";
+            body.appendChild(containerRight);
+
+            // Contenedor de la lista de nodos con borde
+            const nodeListContainer = document.createElement("div");
+            nodeListContainer.style.display = "flex";
+            nodeListContainer.style.flexWrap = "wrap";
+            nodeListContainer.style.border = "1px solid black";  // Borde visible para el contenedor de nodos
+            nodeListContainer.style.padding = "10px";
+            containerLeft.appendChild(nodeListContainer);
+
+            // Variables de control de nodos
+            let nodeCounter = 0;
+            let maxNodes = 10;
+            let lastNodeAdded = null;
+
+            // Función para actualizar la información en el contenedor derecho
+            const updateInfo = () => {
+                infoLastNode.textContent = `Último elemento: ${lastNodeAdded ? lastNodeAdded.textContent : "Ninguno"}`;
+                infoNodeCount.textContent = `Elementos creados: ${nodeListContainer.children.length}`;
+
+                // Ordenar nodos por orden alfabético
+                const sortedNodes = Array.from(nodeListContainer.children).sort((a, b) => a.textContent.localeCompare(b.textContent));
+                
+                // Limpiar y actualizar el listado de nodos y colores en el orden alfabético
+                infoNodeList.innerHTML = "";
+                sortedNodes.forEach((node) => {
+                    const nodeInfo = document.createElement("div");
+                    nodeInfo.textContent = `${node.textContent} - ${window.getComputedStyle(node).backgroundColor}`;
+                    infoNodeList.appendChild(nodeInfo);
+                });
+            };
+
+            // Contenedor derecho con la información
+            const infoLastNode = document.createElement("div");
+            const infoNodeCount = document.createElement("div");
+            const infoNodeList = document.createElement("div");
+            containerRight.appendChild(infoLastNode);
+            containerRight.appendChild(infoNodeCount);
+            containerRight.appendChild(infoNodeList);
+
+            // Función para crear un nuevo nodo con borde negro
+            const createNode = (text) => {
+                const node = document.createElement("div");
+                node.textContent = text;
+                node.style.width = "20px";
+                node.style.height = "20px";
+                node.style.display = "flex";
+                node.style.alignItems = "center";
+                node.style.justifyContent = "center";
+                node.style.margin = "5px";
+                node.style.backgroundColor = "rgb(255, 255, 255)";  // Color blanco por defecto
+                node.style.border = "1px solid black";  // Borde negro para cada nodo
+                return node;
+            };
+
+            // Funciones para los botones
+            const addNodeAtEnd = () => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    nodeListContainer.appendChild(newNode);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeAtStart = () => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    nodeListContainer.insertBefore(newNode, nodeListContainer.firstChild);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeAtPosition = (position) => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    const index = Math.min(position - 1, nodeListContainer.children.length);
+                    nodeListContainer.insertBefore(newNode, nodeListContainer.children[index]);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeBeforeLetter = (letter) => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    const nodes = Array.from(nodeListContainer.children);
+                    const targetNode = nodes.find(node => node.textContent === letter);
+                    if (targetNode) {
+                        nodeCounter++;
+                        const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                        nodeListContainer.insertBefore(newNode, targetNode);
+                        lastNodeAdded = newNode;
+                        updateInfo();
+                    }
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const deleteFirstNode = () => {
+                if (nodeListContainer.firstChild) {
+                    nodeListContainer.removeChild(nodeListContainer.firstChild);
+                    updateInfo();
+                } else {
+                    alert("No hay nodos para eliminar.");
+                }
+            };
+
+            const changeAllNodeColors = () => {
+                Array.from(nodeListContainer.children).forEach(node => {
+                    node.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                });
+                updateInfo();
+            };
+
+            const changeOddNodeColors = () => {
+                Array.from(nodeListContainer.children).forEach((node, index) => {
+                    if (index % 2 === 0) {
+                        node.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                    }
+                });
+                updateInfo();
+            };
+
+            const changeColorOfNode = (letter) => {
+                const targetNode = Array.from(nodeListContainer.children).find(node => node.textContent === letter);
+                if (targetNode) {
+                    targetNode.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                    updateInfo();
+                }
+            };
+
+            // Crear botones e inputs con estilos
+            const createButton = (label, onClick) => {
+                const button = document.createElement("button");
+                button.textContent = label;
+                button.style.width = "100%";
+                button.style.margin = "5px 0";
+                button.style.padding = "10px";
+                button.style.backgroundColor = "#f0f0f0";
+                button.style.border = "1px solid #cccccc";
+                button.style.borderRadius = "5px";
+                button.style.textAlign = "center";
+                button.addEventListener("click", onClick);
+                containerLeft.appendChild(button);
+            };
+
+            const createInputButton = (label, onClick) => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.style.width = "15px";
+                input.style.marginLeft = "5px";
+                input.maxLength = 1;
+
+                const button = document.createElement("button");
+                button.textContent = label;
+                button.style.flex = "1";
+                button.style.padding = "10px";
+                button.style.backgroundColor = "#f0f0f0";
+                button.style.border = "1px solid #cccccc";
+                button.style.borderRadius = "5px";
+                button.style.textAlign = "center";
+                button.addEventListener("click", () => onClick(input.value));
+
+                const inputContainer = document.createElement("div");
+                inputContainer.style.display = "flex";
+                inputContainer.style.width = "100%";
+                inputContainer.style.margin = "5px 0";
+                inputContainer.appendChild(button);
+                inputContainer.appendChild(input);
+                containerLeft.appendChild(inputContainer);
+            };
+
+            // Agregar botones e inputs
+            createButton("Añadir al final", addNodeAtEnd);
+            createButton("Añadir al inicio", addNodeAtStart);
+            createInputButton("Añadir delante posición", addNodeAtPosition);
+            createInputButton("Añadir delante del elemento", addNodeBeforeLetter);
+            createButton("Cambiar todos los colores", changeAllNodeColors);
+            createButton("Cambiar impares colores", changeOddNodeColors);
+            createInputButton("Cambiar color elemento", changeColorOfNode);
+            createButton("Borrar primero", deleteFirstNode);
+
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
