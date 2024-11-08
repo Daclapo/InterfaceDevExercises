@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Nodos</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const body = document.body;
+
+            // Título
+            const h1 = document.createElement("h1");
+            h1.textContent = "MANEJAR UNA LISTA DE NODOS";
+            body.appendChild(h1);
+
+            // Contenedores de la lista y la información
+            const containerLeft = document.createElement("div");
+            const containerRight = document.createElement("div");
+
+            // Estilos de los contenedores principales
+            [containerLeft, containerRight].forEach(container => {
+                container.style.width = "300px";
+                container.style.height = "500px";
+                container.style.border = "1px solid black";
+                container.style.padding = "10px";
+                container.style.margin = "10px";
+                container.style.float = "left";
+                body.appendChild(container);
+            });
+
+            // Contenedor de la lista de nodos en el lado izquierdo
+            const nodeListContainer = document.createElement("div");
+            nodeListContainer.style.display = "flex";
+            nodeListContainer.style.flexWrap = "wrap";
+            containerLeft.appendChild(nodeListContainer);
+
+            // Variables de control de nodos
+            let nodeCounter = 0;
+            let maxNodes = 10;
+            let lastNodeAdded = null;
+
+            // Crear una función para actualizar la información en el contenedor derecho
+            const updateInfo = () => {
+                infoLastNode.textContent = `Último elemento: ${lastNodeAdded ? lastNodeAdded.textContent : "Ninguno"}`;
+                infoNodeCount.textContent = `Elementos creados: ${nodeListContainer.children.length}`;
+
+                // Actualizar el listado de nodos y colores
+                infoNodeList.innerHTML = "";
+                Array.from(nodeListContainer.children).forEach((node) => {
+                    const nodeInfo = document.createElement("div");
+                    nodeInfo.textContent = `${node.textContent} - ${window.getComputedStyle(node).backgroundColor}`;
+                    infoNodeList.appendChild(nodeInfo);
+                });
+            };
+
+            // Contenedor derecho con la información
+            const infoLastNode = document.createElement("div");
+            const infoNodeCount = document.createElement("div");
+            const infoNodeList = document.createElement("div");
+            containerRight.appendChild(infoLastNode);
+            containerRight.appendChild(infoNodeCount);
+            containerRight.appendChild(infoNodeList);
+
+            // Función para crear un nuevo nodo
+            const createNode = (text) => {
+                const node = document.createElement("div");
+                node.textContent = text;
+                node.style.width = "30px";
+                node.style.height = "30px";
+                node.style.display = "flex";
+                node.style.alignItems = "center";
+                node.style.justifyContent = "center";
+                node.style.margin = "5px";
+                node.style.backgroundColor = "rgb(255, 255, 255)";  // Color blanco por defecto
+                return node;
+            };
+
+            // Funciones para los botones
+            const addNodeAtEnd = () => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    nodeListContainer.appendChild(newNode);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeAtStart = () => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    nodeListContainer.insertBefore(newNode, nodeListContainer.firstChild);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeAtPosition = (position) => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    nodeCounter++;
+                    const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                    const index = Math.min(position - 1, nodeListContainer.children.length);
+                    nodeListContainer.insertBefore(newNode, nodeListContainer.children[index]);
+                    lastNodeAdded = newNode;
+                    updateInfo();
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const addNodeBeforeLetter = (letter) => {
+                if (nodeListContainer.children.length < maxNodes) {
+                    const nodes = Array.from(nodeListContainer.children);
+                    const targetNode = nodes.find(node => node.textContent === letter);
+                    if (targetNode) {
+                        nodeCounter++;
+                        const newNode = createNode(String.fromCharCode(64 + nodeCounter));
+                        nodeListContainer.insertBefore(newNode, targetNode);
+                        lastNodeAdded = newNode;
+                        updateInfo();
+                    }
+                } else {
+                    alert("Se alcanzó el número máximo de nodos.");
+                }
+            };
+
+            const deleteFirstNode = () => {
+                if (nodeListContainer.firstChild) {
+                    nodeListContainer.removeChild(nodeListContainer.firstChild);
+                    updateInfo();
+                } else {
+                    alert("No hay nodos para eliminar.");
+                }
+            };
+
+            const changeAllNodeColors = () => {
+                Array.from(nodeListContainer.children).forEach(node => {
+                    node.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                });
+                updateInfo();
+            };
+
+            const changeOddNodeColors = () => {
+                Array.from(nodeListContainer.children).forEach((node, index) => {
+                    if (index % 2 === 0) {
+                        node.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                    }
+                });
+                updateInfo();
+            };
+
+            const changeColorOfNode = (letter) => {
+                const targetNode = Array.from(nodeListContainer.children).find(node => node.textContent === letter);
+                if (targetNode) {
+                    targetNode.style.backgroundColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                    updateInfo();
+                }
+            };
+
+            // Crear botones e inputs con estilos
+            const createButton = (label, onClick) => {
+                const button = document.createElement("button");
+                button.textContent = label;
+                button.style.width = "100%";
+                button.style.margin = "5px 0";
+                button.style.padding = "10px";
+                button.style.backgroundColor = "#f0f0f0";
+                button.style.border = "1px solid #cccccc";
+                button.style.borderRadius = "5px";
+                button.style.textAlign = "center";
+                button.addEventListener("click", onClick);
+                containerLeft.appendChild(button);
+            };
+
+            const createInputButton = (label, onClick) => {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.placeholder = label;
+                input.style.width = "40%";
+                input.style.marginRight = "5px";
+
+                const button = document.createElement("button");
+                button.textContent = label;
+                button.style.width = "55%";
+                button.style.padding = "10px";
+                button.style.backgroundColor = "#f0f0f0";
+                button.style.border = "1px solid #cccccc";
+                button.style.borderRadius = "5px";
+                button.style.textAlign = "center";
+                button.addEventListener("click", () => onClick(input.value));
+
+                const inputContainer = document.createElement("div");
+                inputContainer.style.display = "flex";
+                inputContainer.style.width = "100%";
+                inputContainer.style.margin = "5px 0";
+                inputContainer.appendChild(input);
+                inputContainer.appendChild(button);
+                containerLeft.appendChild(inputContainer);
+            };
+
+            // Agregar botones e inputs
+            createButton("Añadir al final", addNodeAtEnd);
+            createButton("Añadir al inicio", addNodeAtStart);
+            createInputButton("Añadir delante posición", addNodeAtPosition);
+            createInputButton("Añadir delante del elemento", addNodeBeforeLetter);
+            createButton("Borrar primero", deleteFirstNode);
+            createButton("Cambiar todos los colores", changeAllNodeColors);
+            createButton("Cambiar impares colores", changeOddNodeColors);
+            createInputButton("Cambiar color elemento", changeColorOfNode);
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

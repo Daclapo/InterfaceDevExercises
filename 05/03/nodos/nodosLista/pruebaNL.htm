@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dynamic Div List</title>
+  <style>
+    .div-item {
+      background-color: #f1f1f1;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Dynamic Div List</h1>
+
+  <div id="div-container"></div>
+
+  <div>
+    <input type="text" id="position-input" placeholder="Posición" />
+    <input type="text" id="color-input" placeholder="Color" />
+    <button id="add-first">Añadir al inicio</button>
+    <button id="add-last">Añadir al final</button>
+    <button id="add-position">Añadir en posición</button>
+    <button id="add-before">Añadir delante</button>
+    <button id="remove-first">Borrar primero</button>
+    <button id="change-all">Cambiar todos los colores</button>
+    <button id="change-odd">Cambiar colores impares</button>
+    <button id="change-one">Cambiar color indicado</button>
+    <button id="show-last">Mostrar último</button>
+    <button id="show-count">Mostrar cantidad</button>
+    <button id="show-list">Mostrar lista</button>
+  </div>
+
+  <script>
+    const divContainer = document.getElementById('div-container');
+    const divItems = [];
+    const maxDivs = 10;
+
+    function createDivItem(color) {
+      const divItem = document.createElement('div');
+      divItem.classList.add('div-item');
+      divItem.style.backgroundColor = color;
+      divItem.textContent = `Div ${divItems.length + 1}`;
+      return divItem;
+    }
+
+    function addDivFirst() {
+      if (divItems.length < maxDivs) {
+        const newDiv = createDivItem('#' + Math.floor(Math.random() * 16777215).toString(16));
+        divContainer.insertBefore(newDiv, divContainer.firstChild);
+        divItems.unshift(newDiv);
+        updateDivIds();
+      } else {
+        alert('Límite de divs alcanzado');
+      }
+    }
+
+    function addDivLast() {
+      if (divItems.length < maxDivs) {
+        const newDiv = createDivItem('#' + Math.floor(Math.random() * 16777215).toString(16));
+        divContainer.appendChild(newDiv);
+        divItems.push(newDiv);
+        updateDivIds();
+      } else {
+        alert('Límite de divs alcanzado');
+      }
+    }
+
+    function addDivAtPosition() {
+      if (divItems.length < maxDivs) {
+        const position = parseInt(document.getElementById('position-input').value);
+        if (isNaN(position) || position < 0 || position > divItems.length) {
+          alert('Posición inválida');
+          return;
+        }
+        const newDiv = createDivItem('#' + Math.floor(Math.random() * 16777215).toString(16));
+        if (position === 0) {
+          divContainer.insertBefore(newDiv, divContainer.firstChild);
+        } else {
+          divContainer.insertBefore(newDiv, divItems[position - 1]);
+        }
+        divItems.splice(position, 0, newDiv);
+        updateDivIds();
+      } else {
+        alert('Límite de divs alcanzado');
+      }
+    }
+
+    function addDivBefore() {
+      if (divItems.length < maxDivs) {
+        const position = parseInt(document.getElementById('position-input').value);
+        if (isNaN(position) || position < 1 || position > divItems.length) {
+          alert('Posición inválida');
+          return;
+        }
+        const newDiv = createDivItem('#' + Math.floor(Math.random() * 16777215).toString(16));
+        divContainer.insertBefore(newDiv, divItems[position - 1]);
+        divItems.splice(position - 1, 0, newDiv);
+        updateDivIds();
+      } else {
+        alert('Límite de divs alcanzado');
+      }
+    }
+
+    function removeFirstDiv() {
+      if (divItems.length > 0) {
+        divContainer.removeChild(divItems[0]);
+        divItems.shift();
+        updateDivIds();
+      } else {
+        alert('No hay divs para borrar');
+      }
+    }
+
+    function changeAllColors() {
+      divItems.forEach((div) => {
+        div.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      });
+    }
+
+    function changeOddColors() {
+      divItems.forEach((div, index) => {
+        if ((index + 1) % 2 === 1) {
+          div.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+      });
+    }
+
+    function changeOneColor() {
+      const position = parseInt(document.getElementById('position-input').value);
+      const color = document.getElementById('color-input').value;
+      if (isNaN(position) || position < 1 || position > divItems.length) {
+        alert('Posición inválida');
+        return;
+      }
+      divItems[position - 1].style.backgroundColor = color;
+    }
+
+    function showLastElement() {
+      if (divItems.length > 0) {
+        alert(`Último elemento: Div ${divItems.length}`);
+      } else {
+        alert('No hay divs para mostrar');
+      }
+    }
+
+    function showDivCount() {
+      alert(`Hay ${divItems.length} divs en la página`);
+    }
+
+    function showDivList() {
+      let message = 'Lista de divs:\n';
+      divItems.forEach((div, index) => {
+        message += `Div ${index + 1}: ${div.style.backgroundColor}\n`;
+      });
+      alert(message);
+    }
+
+    function updateDivIds() {
+      divItems.forEach((div, index) => {
+        div.textContent = `Div ${index + 1}`;
+      });
+    }
+
+    document.getElementById('add-first').addEventListener('click', addDivFirst);
+    document.getElementById('add-last').addEventListener('click', addDivLast);
+    document.getElementById('add-position').addEventListener('click', addDivAtPosition);
+    document.getElementById('add-before').addEventListener('click', addDivBefore);
+    document.getElementById('remove-first').addEventListener('click', removeFirstDiv);
+    document.getElementById('change-all').addEventListener('click', changeAllColors);
+    document.getElementById('change-odd').addEventListener('click', changeOddColors);
+    document.getElementById('change-one').addEventListener('click', changeOneColor);
+    document.getElementById('show-last').addEventListener('click', showLastElement);
+    document.getElementById('show-count').addEventListener('click', showDivCount);
+    document.getElementById('show-list').addEventListener('click', showDivList);
+  </script>
+</body>
+</html>

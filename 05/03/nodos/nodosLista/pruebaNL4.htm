@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+    <body>
+        <script>
+          // Create the main container
+          const mainContainer = document.createElement('div');
+          mainContainer.classList.add('main-container');
+          document.body.appendChild(mainContainer);
+      
+          // Create the title
+          const title = document.createElement('h1');
+          title.textContent = 'MANEJAR UNA LISTA DE NODOS';
+          mainContainer.appendChild(title);
+      
+          // Create the two sub-containers
+          const leftContainer = document.createElement('div');
+          leftContainer.classList.add('container', 'left-container');
+          const rightContainer = document.createElement('div');
+          rightContainer.classList.add('container', 'right-container');
+          mainContainer.appendChild(leftContainer);
+          mainContainer.appendChild(rightContainer);
+      
+          // Create the node container inside the left container
+          const nodeContainer = document.createElement('div');
+          nodeContainer.classList.add('node-container');
+          leftContainer.appendChild(nodeContainer);
+      
+          // Create the buttons container inside the left container
+          const buttonsContainer = document.createElement('div');
+          buttonsContainer.classList.add('buttons-container');
+          leftContainer.appendChild(buttonsContainer);
+      
+          // Create the input fields and buttons
+          const positionInput = document.createElement('input');
+          positionInput.type = 'text';
+          positionInput.placeholder = 'Posición';
+          const colorInput = document.createElement('input');
+          colorInput.type = 'text';
+          colorInput.placeholder = 'Color';
+      
+          const addFirstButton = document.createElement('button');
+          addFirstButton.id = 'add-first';
+          addFirstButton.textContent = 'Añadir al inicio';
+          const addLastButton = document.createElement('button');
+          addLastButton.id = 'add-last';
+          addLastButton.textContent = 'Añadir al final';
+          const addPositionButton = document.createElement('button');
+          addPositionButton.id = 'add-position';
+          addPositionButton.textContent = 'Añadir en posición';
+          const addBeforeButton = document.createElement('button');
+          addBeforeButton.id = 'add-before';
+          addBeforeButton.textContent = 'Añadir delante';
+          const removeFirstButton = document.createElement('button');
+          removeFirstButton.id = 'remove-first';
+          removeFirstButton.textContent = 'Borrar primero';
+          const changeAllButton = document.createElement('button');
+          changeAllButton.id = 'change-all';
+          changeAllButton.textContent = 'Cambiar todos los colores';
+          const changeOddButton = document.createElement('button');
+          changeOddButton.id = 'change-odd';
+          changeOddButton.textContent = 'Cambiar colores impares';
+          const changeOneButton = document.createElement('button');
+          changeOneButton.id = 'change-one';
+          changeOneButton.textContent = 'Cambiar color indicado';
+      
+          buttonsContainer.appendChild(positionInput);
+          buttonsContainer.appendChild(colorInput);
+          buttonsContainer.appendChild(addFirstButton);
+          buttonsContainer.appendChild(addLastButton);
+          buttonsContainer.appendChild(addPositionButton);
+          buttonsContainer.appendChild(addBeforeButton);
+          buttonsContainer.appendChild(removeFirstButton);
+          buttonsContainer.appendChild(changeAllButton);
+          buttonsContainer.appendChild(changeOddButton);
+          buttonsContainer.appendChild(changeOneButton);
+      
+          // Create the information container
+          const informationContainer = document.createElement('div');
+          informationContainer.classList.add('container', 'information-container');
+          const lastElementParagraph = document.createElement('p');
+          lastElementParagraph.innerHTML = 'Último elemento: <span id="last-element"></span>';
+          const elementCountParagraph = document.createElement('p');
+          elementCountParagraph.innerHTML = 'Elementos creados: <span id="element-count"></span>';
+          const nodeListHeading = document.createElement('h3');
+          nodeListHeading.textContent = 'Lista de nodos';
+          const nodeListPre = document.createElement('pre');
+          nodeListPre.id = 'node-list';
+          informationContainer.appendChild(lastElementParagraph);
+          informationContainer.appendChild(elementCountParagraph);
+          informationContainer.appendChild(nodeListHeading);
+          informationContainer.appendChild(nodeListPre);
+          mainContainer.appendChild(informationContainer);
+
+        
+
+        const nodeContainer2 = document.getElementById('node-container');
+        const lastElementSpan = document.getElementById('last-element');
+        const elementCountSpan = document.getElementById('element-count');
+        const nodeListPre = document.getElementById('node-list');
+    
+        let nodes = [];
+        const maxNodes = 10;
+    
+        function createNode(color, id) {
+          const node = document.createElement('div');
+          node.classList.add('node');
+          node.style.backgroundColor = color;
+          node.textContent = `Nodo ${id}`;
+          return node;
+        }
+    
+        function addNodeFirst() {
+          if (nodes.length < maxNodes) {
+            const newNode = createNode('#' + Math.floor(Math.random() * 16777215).toString(16), nodes.length + 1);
+            nodeContainer.insertBefore(newNode, nodeContainer.firstChild);
+            nodes.unshift(newNode);
+            updateNodeIds();
+            updateInfo();
+          } else {
+            alert('Límite de nodos alcanzado');
+          }
+        }
+    
+        function addNodeLast() {
+          if (nodes.length < maxNodes) {
+            const newNode = createNode('#' + Math.floor(Math.random() * 16777215).toString(16), nodes.length + 1);
+            nodeContainer.appendChild(newNode);
+            nodes.push(newNode);
+            updateNodeIds();
+            updateInfo();
+          } else {
+            alert('Límite de nodos alcanzado');
+          }
+        }
+    
+        function addNodeAtPosition() {
+          if (nodes.length < maxNodes) {
+            const position = parseInt(document.getElementById('position-input').value);
+            if (isNaN(position) || position < 0 || position > nodes.length) {
+              alert('Posición inválida');
+              return;
+            }
+            const newNode = createNode('#' + Math.floor(Math.random() * 16777215).toString(16), position);
+            if (position === 0) {
+              nodeContainer.insertBefore(newNode, nodeContainer.firstChild);
+            } else {
+              nodeContainer.insertBefore(newNode, nodes[position - 1]);
+            }
+            nodes.splice(position, 0, newNode);
+            updateNodeIds();
+            updateInfo();
+          } else {
+            alert('Límite de nodos alcanzado');
+          }
+        }
+    
+        function addNodeBefore() {
+          if (nodes.length < maxNodes) {
+            const position = parseInt(document.getElementById('position-input').value);
+            if (isNaN(position) || position < 1 || position > nodes.length) {
+              alert('Posición inválida');
+              return;
+            }
+            const newNode = createNode('#' + Math.floor(Math.random() * 16777215).toString(16), position);
+            nodeContainer.insertBefore(newNode, nodes[position - 1]);
+            nodes.splice(position - 1, 0, newNode);
+            updateNodeIds();
+            updateInfo();
+          } else {
+            alert('Límite de nodos alcanzado');
+          }
+        }
+    
+        function removeFirstNode() {
+          if (nodes.length > 0) {
+            nodeContainer.removeChild(nodes[0]);
+            nodes.shift();
+            updateNodeIds();
+            updateInfo();
+          } else {
+            alert('No hay nodos para borrar');
+          }
+        }
+    
+        function changeAllColors() {
+          nodes.forEach((node) => {
+            node.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+          });
+          updateInfo();
+        }
+    
+        function changeOddColors() {
+          nodes.forEach((node, index) => {
+            if ((index + 1) % 2 === 1) {
+              node.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }
+          });
+          updateInfo();
+        }
+    
+        function changeOneColor() {
+          const position = parseInt(document.getElementById('position-input').value);
+          const color = document.getElementById('color-input').value;
+          if (isNaN(position) || position < 1 || position > nodes.length) {
+            alert('Posición inválida');
+            return;
+          }
+          nodes[position - 1].style.backgroundColor = color;
+          updateInfo();
+        }
+    
+        function updateNodeIds() {
+          nodes.forEach((node, index) => {
+            node.textContent = `Nodo ${index + 1}`;
+          });
+        }
+    
+        function updateInfo() {
+          lastElementSpan.textContent = `Nodo ${nodes.length}`;
+          elementCountSpan.textContent = nodes.length;
+          let nodeList = '';
+          nodes.forEach((node, index) => {
+            nodeList += `${String.fromCharCode(65 + index)}-rgb(${node.style.backgroundColor.slice(1)})\n`;
+          });
+          nodeListPre.textContent = nodeList;
+        }
+    
+        document.getElementById('add-first').addEventListener('click', addNodeFirst);
+        document.getElementById('add-last').addEventListener('click', addNodeLast);
+        document.getElementById('add-position').addEventListener('click', addNodeAtPosition);
+        document.getElementById('add-before').addEventListener('click', addNodeBefore);
+        document.getElementById('remove-first').addEventListener('click', removeFirstNode);
+        document.getElementById('change-all').addEventListener('click', changeAllColors);
+        document.getElementById('change-odd').addEventListener('click', changeOddColors);
+        document.getElementById('change-one').addEventListener('click', changeOneColor);
+      </script>
+    </body>
+    </html>
