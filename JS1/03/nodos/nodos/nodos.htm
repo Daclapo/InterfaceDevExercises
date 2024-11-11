@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nodos</title>
+    <script>
+        let recursionLevel = 0;
+
+        function displayNodeInfo(node, indent = 0) {
+            recursionLevel++;
+            let indentStr = ' '.repeat(indent);
+            let info = `${indentStr}Node: ${node.nodeName}\n`;
+            info += `${indentStr}Type: ${node.nodeType}\n`;
+            info += `${indentStr}Recursion Level: ${recursionLevel}\n`;
+            
+            if (node.attributes) {
+                info += `${indentStr}Attributes:\n`;
+                for (let attr of node.attributes) {
+                    info += `${indentStr} - ${attr.name}: ${attr.value}\n`;
+                }
+            }
+            
+            if (node.nodeType === Node.TEXT_NODE) {
+                info += `${indentStr}Text Content: "${node.data.trim()}"\n`;
+            }
+            
+            for (let child of node.childNodes) {
+                info += displayNodeInfo(child, indent + 2);
+            }
+            recursionLevel--;
+            return info;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/JS1/03/nodos/nodos/test/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(html, 'text/html');
+                    let output = 'Root Node:\n';
+                    output += displayNodeInfo(doc.documentElement);
+                    output += `Total Nodes: ${doc.getElementsByTagName('*').length}\n`;
+                    document.body.innerHTML = `<pre>${output}</pre>`;
+                })
+                .catch(error => console.error('Error loading the HTML file:', error));
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
