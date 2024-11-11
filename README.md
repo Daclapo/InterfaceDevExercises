@@ -39,7 +39,8 @@ To explore and run these exercises, simply clone this repository to your local m
     - Open the HTML file for that exercise in your browser.
 
 3. **Edit and experiment**:
-    - Open the corresponding `.htm`/`.js` file in your editor to experiment with the code or add improvements. Note: Most of these exercices contain the JavaScript in a `<script>` tag in HTML.
+    - Open the corresponding `.htm`/`.js` file in your editor to experiment with the code or add improvements. 
+Note: Most of these exercices contain the JavaScript in a `<script>` tag in HTML.
 
 ---
 
