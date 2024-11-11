@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nodos</title>
+    <script>
+        let currentLevel = 0;
+        let totalNodes = 0;
+
+        function displayNodeInfo(node) {
+            let info = "";
+            currentLevel++;
+            totalNodes++;
+
+            // Add dots based on current level
+            const dots = ".".repeat(currentLevel - 1);
+
+            const blockStyle = "display: inline-block; height: 20px; width: 140px; overflow: hidden; margin: 2px; vertical-align: middle; text-align: center; line-height: 20px; white-space: nowrap;";
+            const textBlockStyle = "display: inline-block; height: 20px; width: 500px; overflow: hidden; margin: 2px; vertical-align: middle; line-height: 20px; white-space: nowrap;";
+
+            let typeIndicator = node.nodeType === Node.TEXT_NODE ? "(txt)" : "(ele)";
+            info += `${dots}<div style="color: red; border: 1px solid gray; ${blockStyle}">${node.nodeName} ${typeIndicator} [${currentLevel}]</div>`;
+
+            if (node.attributes && node.attributes.length > 0) {
+                info += " [";
+                for (let i = 0; i < node.attributes.length; i++) {
+                    info += `<div style="color: green; border: 1px solid gray; ${blockStyle}">${node.attributes[i].name}='${node.attributes[i].value}'</div>`;
+                    if (i < node.attributes.length - 1) info += ", ";
+                }
+                info += "]";
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                if (node.data.trim()) {
+                    info += ` - <div style="color: blue; border: 1px solid gray; ${textBlockStyle}">"${node.data.trim()}"</div>`;
+                } else {
+                    info += ` - <div style="border: 1px solid #666; color: #a6a6a6; background-color: #eee; ${blockStyle}text-align: left;">vacío</div>`;
+                }
+            }
+            info += "\n";
+
+            let currentLevelBackup = currentLevel;
+            for (let child of node.childNodes) {
+                info += displayNodeInfo(child);
+            }
+            currentLevel = currentLevelBackup;
+
+            return info;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/JS1/03/nodos/nodos/test/index.html')
+                .then(response => response.text())
+                .then(html => {
+                    let parser = new DOMParser();
+                    let doc = parser.parseFromString(html, 'text/html');
+                    totalNodes = 0;
+                    currentLevel = 0;
+                    let output = displayNodeInfo(doc.documentElement);
+                    document.body.innerHTML = `<pre>${output}</pre><div>Total de nodos: ${totalNodes}</div>`;
+                })
+                .catch(error => console.error('Error loading the HTML file:', error));
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
