@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raton</title>
+</head>
+<body>
+    <script>
+        // Crear el contenedor de información superior
+        const infoBox = document.createElement("div");
+        infoBox.id = "infoBox";
+        infoBox.style.width = "100%";
+        infoBox.style.height = "50px";
+        infoBox.style.border = "1px solid black";
+        infoBox.style.textAlign = "center";
+        infoBox.style.lineHeight = "50px";
+        infoBox.style.marginBottom = "10px";
+        document.body.appendChild(infoBox);
+
+        // Dimensiones del tablero
+        const rows = 5; // Número de filas
+        const cols = 5; // Número de columnas
+
+        // Crear el tablero de botones
+        const board = document.createElement("div");
+        board.style.display = "grid";
+        board.style.gridTemplateRows = `repeat(${rows}, 50px)`;
+        board.style.gridTemplateColumns = `repeat(${cols}, 50px)`;
+        board.style.gap = "5px";
+
+        for (let row = 1; row <= rows; row++) {
+            for (let col = 1; col <= cols; col++) {
+                const button = document.createElement("button");
+                button.id = `btn-${row}-${col}`;
+                button.textContent = `${row},${col}`;
+                button.style.cursor = "pointer";
+
+                // Agregar evento onmouseover
+                button.onmouseover = (event) => {
+                    const rect = button.getBoundingClientRect();
+                    const mouseX = event.clientX;
+                    const mouseY = event.clientY;
+                    infoBox.textContent = `ID: ${button.id}, Fila: ${row}, Columna: ${col}, Coordenada X: ${mouseX}, Coordenada Y: ${mouseY}`;
+                };
+
+                board.appendChild(button);
+            }
+        }
+
+        document.body.appendChild(board);
+    </script>
+</body>
+</html>
