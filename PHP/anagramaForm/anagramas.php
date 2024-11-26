@@ -11,21 +11,24 @@
         $param1 = $_REQUEST['param1'];
         $param2 = $_REQUEST['param2'];
 
-        $arr1 = str_split($param1);
-        $arr2 = str_split($param2);
+        $arr1 = str_split(strtolower(str_replace(" ", "", $param1)));
+        $arr2 = str_split(strtolower(str_replace(" ", "", $param2)));
 
         sort($arr1);
         sort($arr2);
 
+        $comp1 = implode($arr1);
+        $comp2 = implode($arr2);
+
         $esAnagrama = false;
-        if ($arr1 == $arr2) {
+        if ($comp1 == $comp2) {
             $esAnagrama = true;
         }
 
         if ($esAnagrama) {
-            echo "<h2>SI</h2>";
+            echo "<span>$param1 & $param2</span><b> son </b> anagramas";
         } else {
-            echo "<h2>NO</h2>";
+            echo "<span>$param1 & $param2</span><b> NO son </b> anagramas";
         }
 
     } else {
