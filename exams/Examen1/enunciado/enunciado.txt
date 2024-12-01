@@ -1,0 +1,45 @@
+entrega: DM2E-GBE1-nia-ApellidosNombre.htm
+tiempo: 100 minutos (ACNEE 125 minutos)
+
+Instrucciones:
+-Leer detenidamente este enunciado, una vez comenzada la prueba no hay preguntas.
+-Acceso a internet y material de clase esta permitido.
+-Uso de IDEs de desarrollo no permitido (react, angular, ..) permitido solo editor de código.
+-Entregas fuera de tiempo no puntuan. Se corrige la ultima entrega en tiempo.
+-Entregar cada 10 minutos desde minuto cero para tener un histórico.
+-Capturas al 100% linux firefox mediapantalla del aula, solo c7.png zoom 80%
+
+Criterios, la prueba es un cero si :
+A-No envia ningún fichero
+B-Envia algo diferente al fichero indicado
+C-Nombre del fichero esta mal
+D-No hay histórico, mínimo 4 ficheros
+E-Uso de IDEs no permitidos
+F-Copiar código entre compañeros es un cero para ambos
+G-El body no esta vacio, aparece HTML
+H-El style no esta vacio, excepto :hover
+
+Prueba:
+Realiza un programa dadas las capturas solo en JS, sin codificar HTML, se puede usar style solo para :hover
+
+Apartados:
+01. Limitar entrada de datos a 2 y a 4 caracteres
+02. Presentar alineados textos y textarea de la primera linea
+03. Si hay alguna entrada vacia imprimir "faltan datos"
+04. Si todas las entradas sin error presentar "De mm/aaaa a mm/aaaa"
+05. Si hay alguna entrada con error "error fecha 1" o "error fecha 2"
+06. Para entrada:10 2010 11 2010 presentar linea "De 10/2010 a 11/2010"
+07. Calcular fechas con entrada : 10 2010 11 2010
+08. Calcular fechas con entrada : 11 2010 10 2010
+09. Calcular fechas con entrada : 13 2010 11 2010
+10. Calcular fechas con entrada : 11 2010 0 2011
+11. Calcular fechas con entrada : 1 2010 1 2011
+12. Presentar fechas en formato "vie-1" ... 
+13. Presentar cajas de fechas alineadas en cada linea 12 cajas 
+14. hover presenta verde claro solo en las fechas
+15. click en las fechas deja la celda amarilla
+16. click en la celda amarilla deja la celda en color anterior
+
+Calificación:
+Todos los apartados puntuan igual.
+Solo apartados completos puntuan, incompletos es un cero.
