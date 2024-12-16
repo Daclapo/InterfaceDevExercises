@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa con círculos</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #mapid { height: 600px; }
+        .legend {
+            background: white;
+            padding: 10px;
+            line-height: 18px;
+            color: #555;
+        }
+        .legend span {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .legend .circle {
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            border-radius: 50%;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <div id="mapid"></div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Crear el mapa y establecer la vista inicial
+        var map = L.map('mapid').setView([30, 100], 4);
+
+        // Añadir capa de OpenStreetMap en blanco y negro
+        var tonerLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.{ext}', {
+            attribution: 'Map tiles by Stamen Design, CC BY 3.0 &mdash; Map data © OpenStreetMap contributors',
+            subdomains: 'abcd',
+            ext: 'png'
+        }).addTo(map);
+
+        // Datos de los círculos
+        var circles = [];
+
+        // Añadir 10 círculos grandes
+        for (var i = 0; i < 10; i++) {
+            circles.push({ lat: getRandomLat(), lng: getRandomLng(), radius: 50000, color: 'red' });
+        }
+
+        // Añadir 5 círculos medianos
+        for (var i = 0; i < 5; i++) {
+            circles.push({ lat: getRandomLat(), lng: getRandomLng(), radius: 30000, color: 'orange' });
+        }
+
+        // Añadir 1 círculo pequeño
+        circles.push({ lat: getRandomLat(), lng: getRandomLng(), radius: 10000, color: 'green' });
+
+        // Función para obtener una latitud aleatoria en Asia
+        function getRandomLat() {
+            return Math.random() * (55 - 5) + 5; // latitudes entre 5 y 55
+        }
+
+        // Función para obtener una longitud aleatoria en Asia
+        function getRandomLng() {
+            return Math.random() * (140 - 60) + 60; // longitudes entre 60 y 140
+        }
+
+        // Añadir círculos al mapa
+        circles.forEach(function(circle) {
+            L.circle([circle.lat, circle.lng], {
+                color: circle.color,
+                fillColor: circle.color,
+                fillOpacity: 0.5,
+                radius: circle.radius
+            }).addTo(map);
+        });
+
+        // Añadir leyenda
+        var legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function(map) {
+            var div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += '<span><strong>Leyenda</strong></span>';
+            div.innerHTML += '<span><span class="circle" style="background:red;"></span> Círculo grande</span>';
+            div.innerHTML += '<span><span class="circle" style="background:orange;"></span> Círculo mediano</span>';
+            div.innerHTML += '<span><span class="circle" style="background:green;"></span> Círculo pequeño</span>';
+            return div;
+        };
+
+        legend.addTo(map);
+
+        // Colorear los países
+        // Aquí se puede añadir código para cargar un archivo GeoJSON y aplicar estilos
+
+    </script>
+</body>
+</html>

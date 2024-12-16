@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Asia con fronteras</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Contenedor del mapa */
+        #mapid {
+            width: 100%;
+            height: 800px;
+        }
+
+        /* Estilo de la leyenda */
+        .legend {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+        }
+        .legend span {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor del mapa -->
+    <div id="mapid"></div>
+
+    <!-- Scripts de librerías -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Inicializar el mapa
+        var map = L.map('mapid', {
+            center: [34, 105], // Posición central de Asia
+            zoom: 4 // Nivel de zoom
+        });
+
+        // Capa base sin etiquetas y agua blanca
+        var baseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CartoDB',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Agregar fronteras de países con datos GeoJSON
+        axios.get('https://raw.githubusercontent.com/johan/world.geo.json/master/countries/asia.geo.json')
+            .then(response => {
+                L.geoJSON(response.data, {
+                    style: function (feature) {
+                        return {
+                            color: "#444", // Color de las fronteras
+                            weight: 1,     // Grosor de las líneas
+                            fillOpacity: 0 // Sin relleno
+                        };
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.name); // Mostrar el nombre del país
+                    }
+                }).addTo(map);
+            })
+            .catch(error => {
+                console.error("Error cargando GeoJSON: ", error);
+            });
+
+        // Crear círculos de diferentes tamaños
+        var circles = [
+            { lat: 30, lng: 114, radius: 50000, color: 'red', label: 'Wuhan' },
+            { lat: 35, lng: 139, radius: 20000, color: 'red', label: 'Japón' },
+            { lat: 15, lng: 100, radius: 10000, color: 'red', label: 'Tailandia' },
+            { lat: 40, lng: 116, radius: 10000, color: 'red', label: 'Beijing' },
+            { lat: 37, lng: 127, radius: 20000, color: 'red', label: 'Corea del Sur' },
+            { lat: 23, lng: 78, radius: 50000, color: 'red', label: 'India' },
+            { lat: 1, lng: 103, radius: 10000, color: 'red', label: 'Singapur' },
+            { lat: 21, lng: 105, radius: 20000, color: 'red', label: 'Vietnam' },
+            { lat: -6, lng: 107, radius: 10000, color: 'red', label: 'Indonesia' },
+            { lat: 14, lng: 121, radius: 20000, color: 'red', label: 'Filipinas' }
+        ];
+
+        // Añadir círculos al mapa
+        circles.forEach(function (circle) {
+            L.circle([circle.lat, circle.lng], {
+                color: circle.color,
+                fillColor: circle.color,
+                fillOpacity: 0.6,
+                radius: circle.radius
+            }).bindPopup(circle.label).addTo(map);
+        });
+
+        // Leyenda
+        var legend = L.control({ position: 'bottomright' });
+
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'legend');
+            div.innerHTML += "<span><strong>Leyenda</strong></span>";
+            div.innerHTML += "<span style='color:red;'>● Grande: 50,000 casos</span>";
+            div.innerHTML += "<span style='color:red;'>● Mediano: 20,000 casos</span>";
+            div.innerHTML += "<span style='color:red;'>● Pequeño: 10,000 casos</span>";
+            return div;
+        };
+
+        legend.addTo(map);
+    </script>
+</body>
+</html>
