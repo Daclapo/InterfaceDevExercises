@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa básico con Leaflet.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-G1rYBJ1YEXLZVJK1HgqMOYD1Dzq88JuIToiFhpW4XPo="
+        crossorigin="" />
+    <style>
+        #map {
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <h1>Leaflet Demo</h1>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-pfQJDG2YJURHYpIwpj5VbnzlEtY+z1eazHcLBzU0YCU="
+        crossorigin=""></script>
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script>
+        var demoMap = L.map('map').setView([40.453191, -3.509236], 6);
+
+        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAttrib = 'Map data © OpenStreetMap contributors';
+        var osm = new L.TileLayer(osmUrl, {
+            minZoom: 5,
+            maxZoom: 16,
+            attribution: osmAttrib
+        });
+        demoMap.addLayer(osm);
+
+        var location = [39.190878, -5.780694];
+        var marker = L.marker(location);
+        marker.bindPopup('Latitud: ' + location[0] + '<br>Longitud: ' + location[1]);
+        marker.addTo(demoMap);
+    </script>
+</body>
+</html>

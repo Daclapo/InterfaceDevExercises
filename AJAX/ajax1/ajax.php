@@ -103,17 +103,18 @@
         }
     </script>
     <span>
+    <br><br>
     ¿Se pueden enviar los parámetros en REQUEST en un GET? <br>
-No. En un GET los parámetros siempre van en la URL.<br><br>
+    No. En un GET los parámetros siempre van en la URL.<br><br>
  
-¿Se pueden enviar los parámetros en URL en un POST?<br>
-Sí. Se pueden incluir parámetros en la URL. <br><br>
+    ¿Se pueden enviar los parámetros en URL en un POST?<br>
+    Sí. Se pueden incluir parámetros en la URL. <br><br>
  
-¿Se puede enviar datos XML como TEXTO?<br>
-Sí. Se puede enviar una cadena de texto con formato XML. <br><br>
+    ¿Se puede enviar datos XML como TEXTO?<br>
+    Sí. Se puede enviar una cadena de texto con formato XML. <br><br>
  
-¿Cómo recibo XML en JS?<br>
-Cuando servidor responde con XML, se puede parsear utiizando responseXML o un DOMParser para manipularlo como un documento XML. <br><br>
+    ¿Cómo recibo XML en JS?<br>
+    Cuando servidor responde con XML, se puede parsear utiizando responseXML o un DOMParser para manipularlo como un documento XML. <br><br>
     </span>
 </body>
 </html>
