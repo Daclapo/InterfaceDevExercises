@@ -1,0 +1,57 @@
+entrega: DM2E-GBC5-nia-ApellidosNombre.7z
+tiempo: 60m (ACNEE 75m)
+acceso a internet: si
+
+Instrucciones:
+-Leer detenidamente este enunciado
+-Una vez comenzada la prueba no hay preguntas
+-Acceso a internet y material de clase esta permitido
+-Entregas fuera de tiempo no puntuan. Se corrige la ultima entrega en tiempo
+
+Criterios, la prueba es un cero si :
+A-No envia ningún fichero
+B-Envia algo diferente al fichero indicado
+C-Nombre del fichero o extension o de la carpeta incorrectos
+D-No hay histórico desde minuto cero, cada 10 minutos
+F-Uso de IDEs o IA no permitidos ( react, angular, chatGPT, ... )
+G-Copiar código entre compañeros es un cero para ambos
+
+Condiciones de la prueba:
+- bloques <style> será borrados
+- HTML dinámico en lineas JavaScript será borrado
+- cualquier método createElement será borrado
+- cualquier evento o estilo en HTML será borrado
+- se usará index.htm dado sin modificar
+- se corrige en firefox, linux, zoom 100%
+
+Prueba:
+-Programar un solo fichero php exclusivamente en JS y PHP según las capturas
+-Se utiliza index.htm para enviar peticiones a index.php
+-Entregar una carpeta comprimida con 7z
+-La carpeta contiene index.htm e index.php
+-La carpeta y el 7z de llaman igual, como indica arriba en la primera linea 
+
+Apartados:
+A) crear nodos (3 puntos)
+- si alguna de las entradas esta vacia responder 'no hay datos'
+- mostrar el mensaje 'máximo 7 x 12' cuando corresponda
+- crear contenedor principal 
+- crear un textarea
+- crear al menos un button
+B) propiedades del textarea (1 punto) 
+- dimensiones
+- redimensionado
+- escritura no permitida
+C) estructura de la página (1 punto)
+- alineamiento entre todos los elementos
+D) tablero (3 puntos)
+- dibujo de los botones según entrada
+- colores de los botones
+- contenido de los botones
+E) eventos con textos correctos (2 puntos)
+- click en cada button
+- over en cada button
+
+Calificación:
+Todos los apartados puntuan igual dentro del grupo.
+Solo apartados completos puntuan, incompletos es un cero.

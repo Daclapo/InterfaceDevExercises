@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Simple Google Map with Marker and Callback</title>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBV1a5GSEmam0fThfNqpXRIoBjV5KUA1EY&callback=initMap" async defer></script>
+        <script>
+            function initMap() {
+                var location = { lat: -34.397, lng: 150.644 };
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 8,
+                    center: location
+                });
+                var marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+                google.maps.event.addListener(map, 'click', function(event) {
+                    alert('Clicked location: ' + event.latLng);
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <div id="map" style="height:500px;width:100%;"></div>
+    </body>
+</html>
