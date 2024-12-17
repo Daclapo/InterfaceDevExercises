@@ -1,0 +1,62 @@
+entrega: DM2E-GBC6-nia-ApellidosNombre.php
+tiempo: 80m (ACNEE 100m)
+acceso a internet: si
+
+Instrucciones:
+-Leer detenidamente este enunciado
+-Una vez comenzada la prueba no hay preguntas
+-Acceso a internet y material de clase esta permitido
+-Entregas fuera de tiempo no puntuan. Se corrige la ultima entrega en tiempo
+
+Criterios, la prueba es un cero si :
+A-No envia ningún fichero
+B-Envia algo diferente al fichero indicado
+C-Nombre del fichero incorrecto
+D-No hay histórico desde minuto cero, cada 10 minutos
+F-Uso de IDEs o IA no permitidos ( react, angular, chatGPT, ... )
+G-Copiar código entre compañeros es un cero para ambos
+
+Condiciones de la prueba :
+- Será borrado cualquier bloque <style> o estilo en HTML 
+- Será borrado cualquier evento en HTML
+- Será borrada cualquier linea dentro del <body>
+- Será borrado HTML dinámico en php y js
+- Será borrado cualquier código que recarge la página
+- Se corrige en firefox, linux, zoom 100%
+
+Prueba:
+Programar en un fichero php exclusivamente según capturas dadas.
+
+Apartados:
+A) layout ( 3 puntos ) c0.png
+- contenedores principales (400 px de ancho) dimensiones y alineación
+- elementos del menu, dimensiones y alineación
+- contenido del menu
+- texto inicial del segundo contenedor contenido, alineaacion y su estilo
+B) envio de peticiones ( 1 puntos ) captura2.webm
+- imagen
+- texto
+- xml
+- mapa
+- limpiar
+C) respuestas del server ( 2 puntos ) captura2.webm
+- response1
+- response2
+- response3
+- response4
+- response5
+D) presentacion de contenidos leyendo response ( 4 puntos ) c*.png
+- presentacion1 imagen centrada
+- presentacion2 texto estilo y alineacion
+- presentacion3 mapa centro y zoom
+- presentacion3 mapa marcador info estilo y contenido
+- presentacion4 mapa centro y zoom
+- presentacion4 mapa marcador info estilo y contenido
+- presentacion5 texto estilo y alineacion
+
+Calificación:
+Todos los apartados puntuan igual dentro del grupo.
+Solo apartados completos puntuan, incompletos es un cero.
+
+Referencias:
+Destroy leaflet map trouble: https://stackoverflow.com/questions/23753886/destroy-leaflet-map-trouble
