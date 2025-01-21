@@ -1,0 +1,8 @@
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\obj\x86\Debug\EscribirArchivoTexto.vbproj.GenerateResource.Cache
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\bin\Debug\EscribirArchivoTexto.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\bin\Debug\EscribirArchivoTexto.pdb
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\bin\Debug\EscribirArchivoTexto.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\obj\x86\Debug\EscribirArchivoTexto.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\obj\x86\Debug\EscribirArchivoTexto.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\EscribirArchivoTexto\EscribirArchivoTexto\obj\x86\Debug\EscribirArchivoTexto.pdb

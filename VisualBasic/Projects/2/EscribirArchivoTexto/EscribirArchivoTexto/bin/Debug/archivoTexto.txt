@@ -1,0 +1,3 @@
+Hola, este es un archivo de texto creado en Visual Basic .NET.
+Cada línea se escribe usando StreamWriter.
+¡Este es el final del archivo!

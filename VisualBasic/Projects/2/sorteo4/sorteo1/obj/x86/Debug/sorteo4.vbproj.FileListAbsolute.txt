@@ -1,0 +1,3 @@
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo4\sorteo1\obj\x86\Debug\WindowsApplication1.Form1.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo4\sorteo1\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo4\sorteo1\obj\x86\Debug\sorteo4.vbproj.GenerateResource.Cache

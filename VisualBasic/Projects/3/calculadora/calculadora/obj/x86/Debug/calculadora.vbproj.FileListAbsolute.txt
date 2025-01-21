@@ -1,0 +1,2 @@
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\3\calculadora\calculadora\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\3\calculadora\calculadora\obj\x86\Debug\calculadora.vbproj.GenerateResource.Cache
