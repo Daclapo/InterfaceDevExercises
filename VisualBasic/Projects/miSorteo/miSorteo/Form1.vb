@@ -3,7 +3,7 @@
 Public Class Form1
 
     ' Ruta del archivo de log
-    Private ReadOnly archivoLog As String = "LogNumerosGenerados.txt"
+    Private ReadOnly archivoLog As String = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\..\..\LogNumerosGenerados.txt")
 
     Public Sub New()
         InitializeComponent()
@@ -18,44 +18,40 @@ Public Class Form1
     End Sub
 
     Private Sub TextBox1_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox1.TextChanged
-        ' Validar y mostrar mensaje de error dinámicamente
-        If Not Comprobacion(TextBox1) Then
-            Label3.Text = "El valor mínimo debe ser un número entero válido."
-        Else
-            Label3.Text = String.Empty
-        End If
+        ValidarEntradas()
     End Sub
 
     Private Sub TextBox2_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TextBox2.TextChanged
-        ' Validar y mostrar mensaje de error dinámicamente
-        If Not Comprobacion(TextBox2) Then
+        ValidarEntradas()
+    End Sub
+
+    Private Sub TextBox_KeyDown(ByVal sender As System.Object, ByVal e As KeyEventArgs) Handles TextBox1.KeyDown, TextBox2.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            EjecutarSorteo()
+        End If
+    End Sub
+
+    Private Sub ValidarEntradas()
+        ' Validar dinámicamente y mostrar errores en el Label
+        If Not Comprobacion(TextBox1) Then
+            Label3.Text = "El valor mínimo debe ser un número entero válido."
+        ElseIf Not Comprobacion(TextBox2) Then
             Label3.Text = "El valor máximo debe ser un número entero válido."
         Else
             Label3.Text = String.Empty
         End If
     End Sub
 
-    Private Sub TextBox_KeyDown(ByVal sender As System.Object, ByVal e As KeyEventArgs) Handles TextBox1.KeyDown, TextBox2.KeyDown
-        ' Si se presiona la tecla Enter y ambos TextBox son válidos, ejecutar la funcionalidad
-        If e.KeyCode = Keys.Enter Then
-            EjecutarSorteo()
-        End If
-    End Sub
-
     Private Function Comprobacion(ByVal textBox As TextBox) As Boolean
         ' Validar si el TextBox contiene un número entero válido
         Dim value As Integer
-        If Not IsNumeric(textBox.Text) OrElse Not Integer.TryParse(textBox.Text, value) Then
-            Return False
-        End If
-        Return True
+        Return Integer.TryParse(textBox.Text, value)
     End Function
 
     Private Sub EjecutarSorteo()
         Try
-            ' Verificar que ambos TextBox contienen valores válidos antes de generar el número aleatorio
-            If Not Comprobacion(TextBox1) Or Not Comprobacion(TextBox2) Then
-                Label3.Text = "Corrige los errores en las entradas de valores min y max antes de continuar."
+            If Not Comprobacion(TextBox1) OrElse Not Comprobacion(TextBox2) Then
+                Label3.Text = "Corrige los errores en las entradas de valores antes de continuar."
                 Return
             End If
 
@@ -70,25 +66,21 @@ Public Class Form1
             Dim aleatorio As New Random()
             Dim numero As Integer = aleatorio.Next(min, max + 1)
 
-            ' Mostrar el número generado en el Label
-            Label3.Text = "Número generado:  " & vbCrLf & numero.ToString()
+            Label3.Text = "Número generado: " & vbCrLf & numero.ToString()
 
-            ' Guardar el número en el archivo de log
             GuardarNumeroEnLog(numero)
         Catch ex As Exception
-            ' Manejar cualquier error inesperado durante el sorteo
-            Label3.Text = "Ocurrió un error al intentar realizar el sorteo. Inténtalo de nuevo."
+            Label3.Text = "Error al realizar el sorteo: " & ex.Message
         End Try
     End Sub
 
     Private Sub GuardarNumeroEnLog(ByVal numero As Integer)
         Try
-            ' Intentar escribir el número generado en el archivo de log
-            Dim texto As String = $"{DateTime.Now}: Número generado = {numero}"
+            Dim texto As String = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & ": Número generado = " & numero.ToString()
             File.AppendAllText(archivoLog, texto & Environment.NewLine)
+            Label3.Text &= vbCrLf & "El resultado se guardó en: " & archivoLog
         Catch ex As Exception
-            ' Manejar cualquier error relacionado con la escritura en el archivo
-            Label3.Text = "Ocurrió un error al guardar el número en el archivo de log."
+            Label3.Text = "Error al guardar en el archivo de log: " & ex.Message
         End Try
     End Sub
 End Class
