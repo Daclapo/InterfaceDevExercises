@@ -1,0 +1,24 @@
+
+
+
+
+Hay 3 pestañas en barra de menus:
+	opciones(se muestran debajo al pulsarlo, ("abrir texto", "guardar texto (dialogo guardar fichero)", "cambiar fuente (dialogo fuente)", "cambiar fondo (dialogo color)", "color de letras (dialogo color)") 
+	herramientas(se muestran abajo opciones, (contar palabras, contar letras, contar blancos, contar numeros)
+	ayuda(se abre una alerta))
+
+
+Dos Cajas
+Una grande (encima), una pequeña.
+
+
+
+Al hacer clic derecho en la caja grande, aparace menu contextual con boton "limpiar", que resetea la caja, y lo pone en blanco.
+
+
+
+
+En la caja pequeña se muestran los mensajes
+(Substr)
+
+

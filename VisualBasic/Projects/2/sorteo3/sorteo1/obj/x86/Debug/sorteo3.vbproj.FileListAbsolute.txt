@@ -1,0 +1,9 @@
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\bin\Debug\sorteo3.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\bin\Debug\sorteo3.pdb
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\bin\Debug\sorteo3.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\WindowsApplication1.Form1.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\sorteo3.vbproj.GenerateResource.Cache
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\sorteo3.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\sorteo3.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\sorteo3\sorteo1\obj\x86\Debug\sorteo3.pdb

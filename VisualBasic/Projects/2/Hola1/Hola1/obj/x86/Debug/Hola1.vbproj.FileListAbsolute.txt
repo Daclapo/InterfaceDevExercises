@@ -1,0 +1,9 @@
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\bin\Debug\Hola1.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\bin\Debug\Hola1.pdb
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\bin\Debug\Hola1.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\WindowsApplication1.Form1.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\WindowsApplication1.Resources.resources
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\Hola1.vbproj.GenerateResource.Cache
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\Hola1.exe
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\Hola1.xml
+C:\Users\Vespertino\Documents\DI\VisualBasic\Proyectos\Hola1\Hola1\obj\x86\Debug\Hola1.pdb
