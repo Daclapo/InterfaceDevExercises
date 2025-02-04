@@ -1,0 +1,51 @@
+nombre: DM2E-GBE2-expediente-Apellido1Apellido2Nombre.7z
+tiempo: 100 minutos (ACNEE 125m)
+acceso a internet: si 
+
+Instrucciones:
+-Leer detenidamente este enunciado, una vez comenzada la prueba no hay preguntas.
+-Acceso a internet y material de clase esta permitido.
+-Uso de IDEs de desarrollo no permitido (react, angular, ..) solo permitido solo editor de código.
+-Uso de IA no permitido
+-Entregas fuera de tiempo no puntuan. Se corrige la ultima entrega en tiempo.
+-Entregar mínimo cada 10 minutos desde minuto cero para tener un histórico.
+
+Criterios, la prueba es un cero si:
+A-No envia ningún fichero
+B-Envia algo diferente al fichero indicado
+C-Nombre del fichero esta mal
+D-No hay histórico desde minuto cero cada 10 minutos
+E-Uso de IDEs/IA no permitidos
+F-Copiar código entre compañeros es un cero para ambos
+
+Calificación:
+Todos los apartados puntuan igual.
+Solo apartados completos puntuan, incompletos es un cero.
+
+Apartados:
+* interfaz (1 punto)
+01- dimensiones formulario 702x284
+02- alineación cajas "="
+03- alineación cajas a..z 
+04- alineación cajas de contadores
+05- alineación caja final RGB
+* menus (2 puntos)
+06- crear barra de menus y submenus
+07- crear menu contextual y abrir desde las tres cajas
+08- abrir dialogo color desde el menú principal y contextual
+09- con barra1 barra2 barra3 mostrar los tres controles con los textos a..z
+10- las opciones barra1 barra2 barra3 quedan deshabilitadas
+* formulario (2 puntos)
+11- titulo del formulario
+12- anular controles de maximizado, minimizado y mantener X para cerrar
+13- redimensionar solo por abajo hasta ver "MAXIMUN SIZE" con el margen inferior incluido
+14- cerrar aplicación desde el menu principal
+* comportamiento (5 puntos)
+15- modificar el color desde el dialogo-color
+16- restablecer color desde la opción "defecto"
+17- presenta el contador ascendente de 125 a 255 en las tres cajas
+18- cambiar el color de las cajas según el valor del contador
+19- cambiar el estado de la tres cajas "=" ( >> = << = ) 
+20- el contador asciende, para o desciende en los limites 125 a 255 según el estado de la caja "="
+21- modifica las tres barras de progreso a..z segun valores del contador
+22- la caja final RGB muestra el color formado por los tres contadores

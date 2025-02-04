@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Basic Express 2010
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "GBE2", "GBE2\GBE2.vbproj", "{ED628AB6-A953-469F-9D0D-4AB07032CA22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ED628AB6-A953-469F-9D0D-4AB07032CA22}.Debug|x86.ActiveCfg = Debug|x86
+		{ED628AB6-A953-469F-9D0D-4AB07032CA22}.Debug|x86.Build.0 = Debug|x86
+		{ED628AB6-A953-469F-9D0D-4AB07032CA22}.Release|x86.ActiveCfg = Release|x86
+		{ED628AB6-A953-469F-9D0D-4AB07032CA22}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
